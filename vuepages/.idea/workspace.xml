@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9898152-ec93-4065-bcf4-b74c7f5a2d30" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="E:\repository" />
+        <option name="mavenHome" value="D:/MAVEN/apache-maven-3.6.3-bin/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\MAVEN\apache-maven-3.6.3-bin\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1iVN5PneM39RpnejleK0ZXFzWi4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/imgs" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\28353\Desktop\OJ-Demo\vuepages\src\assets\imgs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\28353\Desktop\OJ-Demo\vuepages\src\assets\css" />
+      <recent name="C:\Users\28353\Desktop\OJ-Demo\vuepages\src\assets\imgs" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9898152-ec93-4065-bcf4-b74c7f5a2d30" name="Default Changelist" comment="" />
+      <created>1601988615676</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601988615676</updated>
+      <workItem from="1601988623758" duration="35185000" />
+      <workItem from="1602237844869" duration="11061000" />
+      <workItem from="1602468568274" duration="23373000" />
+      <workItem from="1602554064253" duration="6031000" />
+      <workItem from="1602598810732" duration="19501000" />
+      <workItem from="1603176073615" duration="8453000" />
+      <workItem from="1603781132142" duration="6197000" />
+      <workItem from="1604033818763" duration="13502000" />
+      <workItem from="1604119044267" duration="16843000" />
+      <workItem from="1604241492635" duration="1175000" />
+      <workItem from="1604289612727" duration="8253000" />
+      <workItem from="1604380990199" duration="5898000" />
+      <workItem from="1604471808280" duration="5275000" />
+      <workItem from="1604541555643" duration="190000" />
+      <workItem from="1604541893283" duration="4042000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603783747315">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1603783747315" />
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1601992600464">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1601992600464" />
+    <state x="431" y="85" key="FileChooserDialogImpl" timestamp="1602081964527">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="431" y="85" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1602081964527" />
+    <state x="206" y="26" key="SettingsEditor" timestamp="1604475045900">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="206" y="26" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1604475045900" />
+    <state x="275" y="101" key="Vcs.Push.Dialog.v2" timestamp="1602060916719">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="101" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1602060916719" />
+    <state x="26" y="5" key="new project wizard" timestamp="1602071952630">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="26" y="5" key="new project wizard/0.0.1366.738@0.0.1366.738" timestamp="1602071952630" />
+    <state x="339" y="165" key="run.anything.popup" timestamp="1602556608193">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1602556608193" />
+  </component>
+</project>
