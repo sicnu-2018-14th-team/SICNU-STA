@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.dao.ContestDao">
+
+    <insert id="createContest" parameterType="Contest" useGeneratedKeys="true" keyProperty="contestId">
+        insert into contest(user_id, title, start_time, end_time, description, password, is_private)
+        values (#{contest.userId}, #{contest.title}, #{contest.startTime}, #{contest.endTime}, #{contest.description}, #{contest.password}, #{contest.isPrivate})
+    </insert>
+
+    <select id="queryContestListInfo" resultType="Map">
+        select contest_id, title, start_time, end_time, password from contest limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryContestCnt" resultType="int">
+        select count(*) from contest
+    </select>
+
+</mapper>

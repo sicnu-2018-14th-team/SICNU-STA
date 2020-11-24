@@ -1,3 +1,9 @@
+/*
+ * @Author       : nonameless
+ * @Date         : 2020-10-06 20:47:17
+ * @LastEditors  : nonameless
+ * @LastEditTime : 2020-11-10 16:27:22
+ */
 import Vue from 'vue'
 import './plugins/axios'
 import App from './App.vue'
@@ -26,7 +32,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(result => {
     const data = result.data
     if (data.status === '401') {
-        this.$router.push('/login')
+        this.$router.push('/user/login')
         Vue.prototype.$message.error(data.msg)
     }
     return result
