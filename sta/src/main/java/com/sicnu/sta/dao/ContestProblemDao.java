@@ -1,0 +1,31 @@
+package com.sicnu.sta.dao;
+
+import com.sicnu.sta.entity.ContestProblem;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.redis.connection.RedisServer;
+
+import java.util.List;
+
+@Mapper
+public interface ContestProblemDao {
+
+    // 向比赛中添加题目
+    void addProblemToContest(@Param("contestProblem") ContestProblem contestProblem);
+
+    // 查询比赛下的题目对应题目表的 id
+    List<Integer> queryRealIdList(@Param("contestId") int contestId,
+                                  @Param("typeId") int typeId);
+
+    // 删除比赛中的题目
+    void deleteContestProblem(@Param("contestId") Integer contestId,
+                              @Param("problemId") Integer problemId);
+
+    // 查询比赛下对应题目类型的题目的 id
+    List<Integer> queryProblemIdList(@Param("contestId") Integer contestId,
+                                     @Param("typeId") Integer typeId);
+
+    // 查找比赛下题目的分数
+    Integer queryScore(@Param("contestId") Integer contestId,
+                       @Param("problemId") Integer problemId);
+}

@@ -9,4 +9,16 @@
         select * from auth
     </select>
 
+    <select id="queryRoleAuthByRoleId" resultType="Auth">
+        select * from auth where auth_id in (
+            select auth_id from role_auth where role_id = #{roleId}
+        )
+    </select>
+
+    <select id="queryUserRoleByUserId" resultType="Role">
+        select * from role where role_id in (
+            select role_id from user_role where user_id = #{userId}
+        )
+    </select>
+
 </mapper>

@@ -6,7 +6,7 @@ package com.sicnu.sta.entity;
 public class Auth {
 
     // 权限 id
-    private int authId;
+    private Integer authId;
     // 权限名
     private String authName;
     // 权限描述
@@ -16,7 +16,7 @@ public class Auth {
     // 父权限
     private int pAuthId;
 
-    public Auth(int authId, String authName, String description, String authUrl, int pAuthId) {
+    public Auth(Integer authId, String authName, String description, String authUrl, Integer pAuthId) {
         this.authId = authId;
         this.authName = authName;
         this.description = description;
@@ -24,18 +24,18 @@ public class Auth {
         this.pAuthId = pAuthId;
     }
 
-    public Auth(int authId, String authName, String authUrl, int pAuthId) {
+    public Auth(Integer authId, String authName, String authUrl, Integer pAuthId) {
         this.authId = authId;
         this.authName = authName;
         this.authUrl = authUrl;
         this.pAuthId = pAuthId;
     }
 
-    public int getAuthId() {
+    public Integer getAuthId() {
         return authId;
     }
 
-    public void setAuthId(int authId) {
+    public void setAuthId(Integer authId) {
         this.authId = authId;
     }
 
@@ -55,20 +55,20 @@ public class Auth {
         this.description = description;
     }
 
-    public int getpAuthId() {
-        return pAuthId;
-    }
-
-    public void setpAuthId(int pAuthId) {
-        this.pAuthId = pAuthId;
-    }
-
     public String getAuthUrl() {
         return authUrl;
     }
 
     public void setAuthUrl(String authUrl) {
         this.authUrl = authUrl;
+    }
+
+    public int getpAuthId() {
+        return pAuthId;
+    }
+
+    public void setpAuthId(int pAuthId) {
+        this.pAuthId = pAuthId;
     }
 
     @Override

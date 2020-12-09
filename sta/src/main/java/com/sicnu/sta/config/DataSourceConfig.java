@@ -15,7 +15,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 public class DataSourceConfig {
 
-    private Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
     private String type;
     private String url;
     private String driverClassName;

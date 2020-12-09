@@ -6,28 +6,33 @@ package com.sicnu.sta.entity;
 public class Role {
 
     // 角色 id
-    private int roleId;
+    private Integer roleId;
     // 角色名
     private String roleName;
     // 角色描述
     private String description;
 
-    public Role(int roleId, String roleName) {
+    public Role(String roleName, String description) {
+        this.roleName = roleName;
+        this.description = description;
+    }
+
+    public Role(Integer roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public Role(int roleId, String roleName, String description) {
+    public Role(Integer roleId, String roleName, String description) {
         this.roleId = roleId;
         this.roleName = roleName;
         this.description = description;
     }
 
-    public int getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 

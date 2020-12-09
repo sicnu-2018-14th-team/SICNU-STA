@@ -1,6 +1,7 @@
 package com.sicnu.sta.shiro;
 
-import com.sicnu.sta.utils.TokenUtil;
+import com.sicnu.sta.entity.LoginUser;
+import com.sicnu.sta.utils.TokenUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -9,7 +10,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Service;
-import com.sicnu.sta.entity.User;
 
 import javax.annotation.Resource;
 
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class ShiroRealm extends AuthorizingRealm {
 
     @Resource
-    TokenUtil tokenUtil;
+    TokenUtils tokenUtils;
 
     @Override
     public boolean supports(AuthenticationToken authenticationToken) {
@@ -29,30 +29,21 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        //// 获取用户信息
-        //User user = tokenUtil.validationToken(principalCollection.toString());
-        //// 创建一个授权对象
-        //SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo();
-        //// 判断用户角色是否存在
-        //if (!user.getUserRole().isEmpty()) {
-        //
-        //}
         return null;
     }
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) {
 
         ShiroAuthToken shiroAuthToken = (ShiroAuthToken) authenticationToken;
 
         String token = (String) shiroAuthToken.getCredentials();
-        //System.out.println("token1: " + token);
         // 验证 token
-        User user = tokenUtil.validationToken(token);
-        if (user.getUserId() == null || user.getUserName() == null || user == null) {
+        LoginUser loginUser = TokenUtils.validationToken(token);
+        if (loginUser == null || loginUser.getUserId() == null || loginUser.getUserName() == null) {
             throw new AuthenticationException("Token 无效");
         }
-        return new SimpleAuthenticationInfo(token, token, "ShiroRealm");
+        return new SimpleAuthenticationInfo(loginUser, token, "ShiroRealm");
     }
 }
 

@@ -1,9 +1,8 @@
 package com.sicnu.sta.entity;
 
 /*
- * 用户表
+ * 用户实体类
  */
-
 public class User {
     // 用户 ID （主键）
     private Integer userId;

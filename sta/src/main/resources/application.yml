@@ -1,48 +1,42 @@
 server:
   port: 8848
 
+#文件存储路径
+prop:
+  upload-folder: ./upload/testCases/
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB  # 单个文件的大小
+      max-request-size: 100MB  # 上传文件的总大小
+
+  aop:
+    auto: true
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=true&useAffectedRows=true
+    url: jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=false&useAffectedRows=true
     username: nonameless
     password: tMU9xlqYoC6HGGE+4+NqZnujnn15M6PT+dxjoh8sDH6AyHPh1lqc2+NQ3jS+cscJxC23egNPVyVT2rQ3cBHRSA==
-
-    #配置初始化大小
-    initialSize: 5
-    #最小空闲连接
-    minIdle: 5
-    #最大连接数量
-    maxActive: 20
-    #配置获取连接等待超时的时间
-    maxWait: 60000
-    #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-    timeBetweenEvictionRunsMillis: 2000
-    #配置一个连接在池中最小、最大生存的时间，单位是毫秒
-    minEvictableIdleTimeMillis: 600000
-    maxEvictableIdleTimeMillis: 300000
-    #测试sql
-    validationQuery: SELECT 1 FROM DUAL
-    #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
-    testWhileIdle: true
-    #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
-    testOnBorrow: false
-    #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
-    testOnReturn: false
     #通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALipQT36UA7znO2AXNeBspaVOjpJMKtXN7a90aOsJe6PT9P/B9ogZGq13/yzPG5RRfqP+mQCPeWxEEhKc6zuq38CAwEAAQ==;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-    #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
-    poolPreparedStatements: false
-    #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
-    maxPoolPreparedStatementPerConnectionSize: 20
     #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j 防御sql注入的filter:wall
     filters: stat,wall,slf4j,config
-    useGlobalDataSourceStat: true
-    stat-view-servlet:
-      login-username: admin
-      login-password: admin
 
+  kafka:
+    # kafka服务器地址，多个集群用逗号分隔
+    bootstrap-servers: 112.74.79.124:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: default_consumer_group
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
   # mail 配置
   mail:

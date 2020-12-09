@@ -17,10 +17,6 @@ class UserDaoTest {
     @Test
     void testUserLogin() {
 
-        List<User> users = userDao.sqltest1("1 OR 1=1");
-        for (User user : users) {
-            System.out.println(user);
-        }
 
     }
 }

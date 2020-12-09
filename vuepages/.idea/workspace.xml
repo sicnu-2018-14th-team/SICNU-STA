@@ -10,7 +10,25 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9898152-ec93-4065-bcf4-b74c7f5a2d30" name="Default Changelist" comment="" />
+    <list default="true" id="f9898152-ec93-4065-bcf4-b74c7f5a2d30" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/controller/ContestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/controller/ContestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/dao/AuthDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/dao/AuthDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/entity/Contest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/entity/Contest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/ContestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/ContestServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/EmailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/shiro/ShiroAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/shiro/ShiroAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/shiro/ShiroConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/shiro/ShiroConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/utils/AuthTreeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/utils/AuthTreeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/utils/TokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/java/com/sicnu/sta/utils/TokenUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/resources/dao/AuthDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/resources/dao/AuthDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sta/src/main/resources/dao/ContestDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sta/src/main/resources/dao/ContestDao.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,7 +78,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets/imgs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -98,6 +116,9 @@
       <workItem from="1604471808280" duration="5275000" />
       <workItem from="1604541555643" duration="190000" />
       <workItem from="1604541893283" duration="4042000" />
+      <workItem from="1606224182377" duration="1576000" />
+      <workItem from="1606310649652" duration="95000" />
+      <workItem from="1606310762412" duration="101000" />
     </task>
     <servers />
   </component>
@@ -117,10 +138,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603783747315">
+    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606224211563">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1603783747315" />
+    <state x="354" y="169" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1606224211563" />
     <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1601992600464">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -129,10 +150,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="431" y="85" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1602081964527" />
-    <state x="206" y="26" key="SettingsEditor" timestamp="1604475045900">
+    <state x="206" y="26" key="SettingsEditor" timestamp="1606310744083">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="206" y="26" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1604475045900" />
+    <state x="206" y="26" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1606310744083" />
     <state x="275" y="101" key="Vcs.Push.Dialog.v2" timestamp="1602060916719">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

@@ -50,9 +50,13 @@ public class ShiroConfig {
         // anon 支持匿名访问的拦截器
         LinkedHashMap<String, String> filterChainDefinitions = new LinkedHashMap<>(4);
         // 登录接口和注册放开
+        filterChainDefinitions.put("/email", "anon");
         filterChainDefinitions.put("/user/login", "anon");
         filterChainDefinitions.put("/user/register", "anon");
+
         filterChainDefinitions.put("/user/update_password", "anon");
+        filterChainDefinitions.put("/result.do", "anon");
+        filterChainDefinitions.put("/upload/test-case", "anon");
         filterChainDefinitions.put("/**", "authFilter");
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitions);
         return factoryBean;
