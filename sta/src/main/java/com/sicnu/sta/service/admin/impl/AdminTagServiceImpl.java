@@ -54,6 +54,12 @@ public class AdminTagServiceImpl implements AdminTagService {
                     Tag newTag = new Tag(tag, problemStr);
                     tagDao.addTag(newTag);
                     tagId = newTag.getTagId();
+                } else {
+                    // 存在那么就更新
+                    String tmpPro = tagDao.queryProblemByTag(tagId);
+                    StringBuilder stringBuilder = new StringBuilder(tmpPro);
+                    stringBuilder.setCharAt(problemId - 1, '1');
+                    tagDao.updateTagProblems(tagId, stringBuilder.toString());
                 }
                 res.setCharAt(tagId - 1, '1');
             }

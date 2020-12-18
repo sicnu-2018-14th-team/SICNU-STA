@@ -7,6 +7,9 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -54,13 +57,19 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
                 executeLogin(request, response);
                 // 刷新 Token 1, Token 未过期，每次都调用 refreshToken 判断是否需要刷新 Token
                 TokenUtils tokenUtils = new TokenUtils();
-                String refreshToken = tokenUtils.refreshToken(this.token);
-                if (refreshToken != null) {
-                    this.token = refreshToken;
+                ResultUtils<Object> resultUtils = tokenUtils.refreshToken(this.token, (HttpServletRequest) request);
+                if (resultUtils.getCode() == 200) {
+                    if (!resultUtils.getData().equals("操作成功")) {
+                        this.token = (String) resultUtils.getData();
+                    }
                     shiroAuthResponse(response, true);
+                    return true;
+                } else {
+                    shiroAuthResponse(response, false);
+                    return false;
                 }
-                return true;
             } catch (Exception e) {
+                e.printStackTrace();
                 shiroAuthResponse(response, false);
                 return false;
             }
@@ -97,10 +106,10 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
         if (refresh) {
             // 刷新 Token，设置返回的头部
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-            httpServletResponse.setHeader("Access-Control-Expose-Headers", "Authorization");
+            httpServletResponse.setHeader("Access-Control-Expose-Headers", "token");
             httpServletResponse.addHeader(AUTHORIZATION_HEADER, this.token);
         } else {
-            // 设置 HTTP 状态码为 401
+
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
             // 设置 Json 格式返回
             httpServletResponse.setContentType("application/json;charset=UTF-8");
@@ -108,12 +117,27 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
                 // PrintWriter 输出 Response 返回信息
                 PrintWriter writer = httpServletResponse.getWriter();
                 ObjectMapper mapper = new ObjectMapper();
-                ResultUtils<Object> myResponse = new ResultUtils<Object>(-1, "非授权访问");
+                ResultUtils<Object> myResponse = new ResultUtils<Object>(401, "非授权访问");
                 // 将对象输出为 JSON 格式。可以通过重写 MyResponse 的 toString() ，直接通过 myResponse.toString() 即可
                 writer.write(mapper.writeValueAsString(myResponse));
             } catch (IOException e) {
                 logger.error("异常：", e);
             }
         }
+    }
+
+    @Override
+    protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+        HttpServletRequest req= (HttpServletRequest) request;
+        HttpServletResponse res= (HttpServletResponse) response;
+        res.setHeader("Access-control-Allow-Origin",req.getHeader("Origin"));
+        res.setHeader("Access-control-Allow-Methods","GET,POST,OPTIONS,PUT,DELETE");
+        res.setHeader("Access-control-Allow-Headers",req.getHeader("Access-Control-Request-Headers"));
+        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
+        if (req.getMethod().equals(RequestMethod.OPTIONS.name())) {
+            res.setStatus(HttpStatus.OK.value());
+            return false;
+        }
+        return super.preHandle(request, response);
     }
 }

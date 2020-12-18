@@ -28,4 +28,19 @@ public interface ContestProblemDao {
     // 查找比赛下题目的分数
     Integer queryScore(@Param("contestId") Integer contestId,
                        @Param("problemId") Integer problemId);
+
+    // 查询比赛下的题目对应题目表的 id
+    List<Integer> queryRealIdListPaging(@Param("contestId") int contestId,
+                                        @Param("typeId") int typeId,
+                                        @Param("cnt") int cnt,
+                                        @Param("pageSize") int pageSize);
+
+    // 更新提交数和正确数
+    void updateTotalAndCorrect(@Param("a") int a,
+                               @Param("b") int b,
+                               @Param("contestId") int contestId,
+                               @Param("problemId") int problemId);
+
+    // 查询比赛下的所有题目
+    List<Integer> queryProblemIdsForContest(@Param("contestId") Integer contestId);
 }

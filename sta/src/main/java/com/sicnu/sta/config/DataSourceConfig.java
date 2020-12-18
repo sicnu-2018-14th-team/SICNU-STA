@@ -23,6 +23,7 @@ public class DataSourceConfig {
     private String password;
     private String filters;
     private String connectionProperties;
+
     public String getType() {
         return type;
     }

@@ -19,8 +19,10 @@ public class AdminContestProblemController {
     @MyOpLog(value = "查询比赛的题目")
     @PostMapping("/query-contest-problem")
     public ResultUtils<Object> queryContestProblem(@RequestParam(value = "contestId") int contestId,
-                                                   @RequestParam(value = "typeId") int typeId) {
-        return adminContestProblemService.queryProblemList(contestId, typeId);
+                                                   @RequestParam(value = "typeId") int typeId,
+                                                   @RequestParam(value = "page") int page,
+                                                   @RequestParam(value = "pageSize") int pageSize) {
+        return adminContestProblemService.queryProblemListPaging(contestId, typeId, page, pageSize);
     }
 
     // 向比赛中添加题目

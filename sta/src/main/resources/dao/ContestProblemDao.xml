@@ -35,4 +35,26 @@
         select score from contest_problem where contest_id = #{contestId} and problem_id = #{problemId}
     </select>
 
+    <select id="queryRealIdListPaging" resultType="Integer">
+        select real_id from problem where problem_id in (
+        select problem_id from contest_problem
+        <where>
+            <if test="contestId > 0">
+                contest_id = #{contestId}
+            </if>
+        </where>
+        ) and type_id = #{typeId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <update id="updateTotalAndCorrect">
+        update contest_problem
+        set total = total + #{a},
+        correct = correct + #{b}
+        where contest_id = #{contestId} and problem_id = #{problemId}
+    </update>
+
+    <select id="queryProblemIdsForContest" resultType="Integer">
+        select problem_id from contest_problem where contest_id = #{contestId}
+    </select>
+
 </mapper>

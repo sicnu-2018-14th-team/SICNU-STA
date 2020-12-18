@@ -24,8 +24,8 @@ public class UserContestProblemController {
     // 查询比赛下对应类型的题目
     @MyOpLog(value = "查询比赛下的题目")
     @PostMapping("/user/query-contest-problem")
-    public ResultUtils<Object> queryContestProblem(@RequestParam(value = "contestId") int contestId,
-                                                   @RequestParam(value = "typeId") int typeId) {
+    public ResultUtils<Object> queryContestProblem(@RequestParam(value = "contestId") Integer contestId,
+                                                   @RequestParam(value = "typeId") Integer typeId) {
         return userContestService.queryProblemList(contestId, typeId);
     }
 
@@ -49,6 +49,7 @@ public class UserContestProblemController {
     @MyOpLog(value = "查询比赛下所有类型的题目")
     @PostMapping("/query/contest/all-type-problem")
     public ResultUtils<Object> queryContestAllTypeProblem(@RequestParam(value = "contestId") Integer contestId) {
-        return userContestProblemService.queryContestAllTypeProblem(contestId);
+        LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        return userContestProblemService.queryContestAllTypeProblem(contestId, loginUser.getUserId());
     }
 }

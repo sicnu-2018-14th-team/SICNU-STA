@@ -115,7 +115,7 @@
     </select>
 
     <select id="querySubmitResult" resultType="SubmitProgram">
-        select * from submit_program where submit_id = #{submitId} for update
+        select * from submit_program where submit_id = #{submitId}
     </select>
 
     <update id="saveSubmitResult">
@@ -137,6 +137,68 @@
         where contest_id = #{contestId} and problem_id in (
             select problem_id from problem where type_id = #{typeId}
         )
+    </select>
+
+    <select id="queryTagsByProblemId" resultType="String">
+        select tag from problem where problem_id = #{problemId}
+    </select>
+
+    <select id="queryAllProblemId" resultType="Integer">
+        select problem_id from problem
+    </select>
+
+    <select id="queryRealIdByProblemIdAndTypeId" resultType="Integer">
+        select real_id from problem where problem_id = #{problemId} and type_id = #{typeId}
+    </select>
+
+    <update id="updateChoiceProblem">
+        update choice_problem
+        set title = #{choiceProblem.title},
+        option_a = #{choiceProblem.optionA},
+        option_b = #{choiceProblem.optionB},
+        option_c = #{choiceProblem.optionC},
+        option_d = #{choiceProblem.optionD},
+        score = #{choiceProblem.score},
+        ans = #{choiceProblem.ans},
+        difficulty = #{choiceProblem.difficulty}
+        where problem_id = #{choiceProblem.problemId}
+    </update>
+
+    <select id="queryTestCasePathByPathId" resultType="TestCasePath">
+        select * from test_case_path where problem_id = #{problemId}
+    </select>
+
+    <update id="updateProgramProblem">
+        update program_problem
+        set title = #{programProblem.title},
+        description = #{programProblem.description},
+        input = #{programProblem.input},
+        output = #{programProblem.output},
+        samples = #{programProblem.samples},
+        hint = #{programProblem.hint},
+        time_limit = #{programProblem.timeLimit},
+        memory_limit = #{programProblem.memoryLimit},
+        difficulty = #{programProblem.difficulty},
+        score = #{programProblem.score}
+        where problem_id = #{programProblem.problemId}
+    </update>
+
+    <select id="queryRealIdByTypeIdPaging" resultType="Integer">
+        select real_id from problem where type_id = #{typeId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <delete id="deletePathByProblemId">
+        delete from test_case_path where problem_id = #{problemId}
+    </delete>
+
+    <select id="queryProgramTitleByProblemId" resultType="String">
+        select title from program_problem where problem_id = (
+            select real_id from problem where problem_id = #{problemId}
+        )
+    </select>
+
+    <select id="queryTypeIdByProblemId" resultType="Integer">
+        select type_id from problem where problem_id = #{problemId}
     </select>
 
 </mapper>

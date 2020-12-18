@@ -14,20 +14,43 @@ spring:
   aop:
     auto: true
 
+  # redis 配置
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    port: 6379  # Redis服务器连接端口
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=false&useAffectedRows=true
-    username: nonameless
-    password: tMU9xlqYoC6HGGE+4+NqZnujnn15M6PT+dxjoh8sDH6AyHPh1lqc2+NQ3jS+cscJxC23egNPVyVT2rQ3cBHRSA==
+    #url: jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=false&useAffectedRows=true
+    url: jdbc:mysql://localhost:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST
+    username: root
+    password: JFZ+vYrycoNu2ZiVqsTnvR9GVhSXwRRgcBZUmw1DA++lz9WmTRVn6V51YuQiX09kBDkMKyYOr6RkEF+4NLTyeg==
+
+    initial-size: 3
+    # 连接池最小连接数
+    min-idle: 3
+    # 连接池最大连接数
+    max-active: 20
+    # 获取连接时最大等待时间，单位毫秒
+    max-wait: 60000
+    # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    test-while-idle: true
+    # 既作为检测的间隔时间又作为testWhileIdel执行的依据
+    time-between-connect-error-millis: 60000
+    # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
+    min-evictable-idle-time-millis: 30000
+
+
     #通过connectProperties属性来打开mergeSql功能；慢SQL记录
-    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALipQT36UA7znO2AXNeBspaVOjpJMKtXN7a90aOsJe6PT9P/B9ogZGq13/yzPG5RRfqP+mQCPeWxEEhKc6zuq38CAwEAAQ==;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAODDOS3zUph4eeyGWQXi7+gC9YSsX9GZKy+NdJ2Z8rmZ4gqCofPFaCYvsMqDEwg7c/2zBayWnDLS7yydVspA+O0CAwEAAQ==;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j 防御sql注入的filter:wall
     filters: stat,wall,slf4j,config
 
   kafka:
     # kafka服务器地址，多个集群用逗号分隔
     bootstrap-servers: 112.74.79.124:9092
+    #bootstrap-servers: 127.0.0.1:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

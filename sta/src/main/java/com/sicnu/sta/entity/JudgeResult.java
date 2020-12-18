@@ -13,6 +13,10 @@ public class JudgeResult {
     public JudgeResult() {
     }
 
+    public JudgeResult(String globalMsg) {
+        this.globalMsg = globalMsg;
+    }
+
     public JudgeResult(Integer submitId, String globalMsg, List<ResultCase> result) {
         this.submitId = submitId;
         this.globalMsg = globalMsg;

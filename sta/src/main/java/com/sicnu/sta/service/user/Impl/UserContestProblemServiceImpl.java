@@ -4,6 +4,7 @@ package com.sicnu.sta.service.user.Impl;
 import com.sicnu.sta.dao.AnswerDao;
 import com.sicnu.sta.dao.ContestProblemDao;
 import com.sicnu.sta.dao.ProblemDao;
+import com.sicnu.sta.entity.Answer;
 import com.sicnu.sta.service.user.UserContestProblemService;
 import com.sicnu.sta.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -66,8 +67,6 @@ public class UserContestProblemServiceImpl implements UserContestProblemService 
             log.error("查询编程题信息失败", e);
             return ResultUtils.error();
         }
-
-
     }
 
     /**
@@ -77,16 +76,25 @@ public class UserContestProblemServiceImpl implements UserContestProblemService 
      * @return ResultUtils
      */
     @Override
-    public ResultUtils<Object> queryContestAllTypeProblem(Integer contestId) {
+    public ResultUtils<Object> queryContestAllTypeProblem(Integer contestId, Integer userId) {
         try {
+            // 所有类型
             List<Integer> typeIds = problemDao.queryAllTypeIdOfProblem();
             List<Object> resData = new ArrayList<>();
             for (Integer it : typeIds) {
                 // 查询比赛下该题目类型的题目 id
                 List<Integer> problemIds = problemDao.queryProblemIdsByContestIdAndTypeId(contestId, it);
+                List<Object> temp = new ArrayList<>();
+                for (Integer problemId : problemIds) {
+                    Answer answer = answerDao.queryUserObjectiveResult(userId, contestId, problemId);
+                    if (answer == null) {
+                        answer = new Answer(userId, contestId, problemId, 0);
+                    }
+                    temp.add(answer);
+                }
                 Map<String, Object> map = new HashMap<>();
                 map.put("total", problemIds.size());
-                map.put("data", problemIds);
+                map.put("data", temp);
                 map.put("type", it);
                 resData.add(map);
             }
@@ -96,4 +104,5 @@ public class UserContestProblemServiceImpl implements UserContestProblemService 
             return ResultUtils.error();
         }
     }
+
 }

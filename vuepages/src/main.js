@@ -2,7 +2,7 @@
  * @Author       : nonameless
  * @Date         : 2020-10-06 20:47:17
  * @LastEditors  : nonameless
- * @LastEditTime : 2020-11-10 16:27:22
+ * @LastEditTime : 2020-12-11 01:24:44
  */
 import Vue from 'vue'
 import './plugins/axios'
@@ -22,6 +22,7 @@ Vue.prototype.$qs = qs
 Vue.use(ElementUI);
 Vue.prototype.$md5 = md5;
 
+// 请求拦截
 axios.interceptors.request.use(config => {
     // console.log(config)
     config.headers.token = window.sessionStorage.getItem('token')
@@ -29,14 +30,22 @@ axios.interceptors.request.use(config => {
     return config
 })
 
-axios.interceptors.response.use(result => {
-    const data = result.data
-    if (data.status === '401') {
-        this.$router.push('/user/login')
-        Vue.prototype.$message.error(data.msg)
+axios.interceptors.response.use(
+    result => {
+        const data = result.data
+        if (data.code === '401') {
+            this.$router.push('/user/login')
+            Vue.prototype.$message.error(data.msg)
+        }
+        if (result.headers.token !== null) {
+            window.sessionStorage.setItem("token", result.headers.token);
+        }
+        return result
+    },
+    error => {
+        console.log(error.response);
     }
-    return result
-})
+)
 
 new Vue({
     router,

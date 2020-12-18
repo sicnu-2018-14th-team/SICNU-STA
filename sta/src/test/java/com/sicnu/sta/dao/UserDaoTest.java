@@ -1,12 +1,11 @@
 package com.sicnu.sta.dao;
 
-import com.sicnu.sta.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class UserDaoTest {
@@ -17,6 +16,9 @@ class UserDaoTest {
     @Test
     void testUserLogin() {
 
-
+        Map<String, Object> map = userDao.queryUserInfo(1);
+        if (map.get("phone") == null) {
+            System.out.println(1);
+        }
     }
 }

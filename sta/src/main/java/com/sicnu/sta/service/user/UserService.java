@@ -43,4 +43,66 @@ public interface UserService {
      * @return String
      */
     String getDateTime();
+
+    /**
+     * 退出登录
+     * @return ResultUtils
+     */
+    ResultUtils<Object> logout(Integer userId);
+
+    /**
+     * 获取用户信息
+     * @param userId 用户 id
+     * @return result
+     */
+    ResultUtils<Object> queryUserInfo(Integer userId);
+
+    /**
+     * 查询班级列表
+     * @param code 邀请码
+     * @return result
+     */
+    ResultUtils<Object> queryClassListByCode(String code);
+
+    /**
+     * 学生加入班级
+     * @param classId 班级 id
+     * @param studentId 学生 id
+     * @return result
+     */
+    ResultUtils<Object> studentJoinTheClass(Integer classId, Integer studentId);
+
+    /**
+     * 更新用户信息
+     * @param sex 性别
+     * @param birthday 生日
+     * @param realName 真实姓名
+     * @param address 地址
+     * @param phone 手机号
+     * @param postCode 邮编
+     * @param userId 用户 id
+     * @return result
+     */
+    ResultUtils<Object> updateUserInfo(String sex, String birthday, String realName, String address, String phone, String postCode, Integer userId);
+
+    /**
+     * 获取用户信息
+     * @param userId 用户 id
+     * @return result
+     */
+    ResultUtils<Object> getClassInfo(Integer userId);
+
+    /**
+     * 退出班级
+     * @param classId 班级 id
+     * @param userId 用户 id
+     * @return result
+     */
+    ResultUtils<Object> exitClass(Integer classId, Integer userId);
+
+    /**
+     * 查询系统人力资源和题目、比赛资源的数量
+     * @return 数量
+     */
+    ResultUtils<Object> queryResourceCnt();
 }

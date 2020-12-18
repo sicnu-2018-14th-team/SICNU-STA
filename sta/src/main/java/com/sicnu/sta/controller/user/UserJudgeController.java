@@ -32,10 +32,9 @@ public class UserJudgeController {
     // 查询客观题的评判结果
     @MyOpLog(value = "查看客观题的评判结果")
     @PostMapping("/query-result-objective")
-    public ResultUtils<Object> queryResultOfObjective(@RequestParam(value = "contestId") int contestId,
-                                                      @RequestParam(value = "typeId") int typeId) {
+    public ResultUtils<Object> queryResultOfObjective(@RequestParam(value = "contestId") int contestId) {
         LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-        return userJudgeService.queryResultOfObjective(loginUser.getUserId(), contestId, typeId);
+        return userJudgeService.queryResultOfObjective(loginUser.getUserId(), contestId);
     }
 
     // 提交编程题代码

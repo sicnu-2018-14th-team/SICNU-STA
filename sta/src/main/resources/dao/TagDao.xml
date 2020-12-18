@@ -22,4 +22,12 @@
         select problem from tag where tag_id = #{tagId}
     </select>
 
+    <select id="queryTagNameByTagId" resultType="String">
+        select tag_name from tag where tag_id = #{tagId}
+    </select>
+
+    <update id="updateTagProblems">
+        update tag set problem = #{problem} where tag_id = #{tagId}
+    </update>
+
 </mapper>

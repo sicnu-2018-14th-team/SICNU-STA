@@ -9,4 +9,7 @@ public interface JudgeProblemDao {
 
     // 添加判断题
     void addJudgeProblem(@Param("judgeProblem") JudgeProblem judgeProblem);
+
+    // 修改判断题
+    void updateJudgeProblem(@Param("judgeProblem") JudgeProblem judgeProblem);
 }

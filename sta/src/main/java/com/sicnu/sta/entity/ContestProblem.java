@@ -12,11 +12,39 @@ public class ContestProblem {
     private Integer problemId;
     // 题目分数
     private Integer score;
+    // 提交总数
+    private Integer total;
+    // 正确数
+    private Integer correct;
+
+    public ContestProblem(Integer contestId, Integer problemId, Integer score, Integer total, Integer correct) {
+        this.contestId = contestId;
+        this.problemId = problemId;
+        this.score = score;
+        this.total = total;
+        this.correct = correct;
+    }
 
     public ContestProblem(Integer contestId, Integer problemId, Integer score) {
         this.contestId = contestId;
         this.problemId = problemId;
         this.score = score;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
     }
 
     public Integer getContestId() {

@@ -50,6 +50,10 @@ public class ResultUtils<T> {
         return new ResultUtils<>(CODE_FAIL, MSG_FAIL, ERROR);
     }
 
+    public static ResultUtils<Object> error(String data) {
+        return new ResultUtils<>(CODE_FAIL, MSG_FAIL, data);
+    }
+
 
     public int getCode() {
         return code;

@@ -17,10 +17,9 @@ public interface UserJudgeService {
      * 查询客观题答题结果
      * @param userId 用户 id
      * @param contestId 比赛 id
-     * @param typeId 题目类型 id
      * @return ResultUtils
      */
-    ResultUtils<Object> queryResultOfObjective(int userId, int contestId, int typeId);
+    ResultUtils<Object> queryResultOfObjective(int userId, int contestId);
 
     /**
      * 评判客观题的答案

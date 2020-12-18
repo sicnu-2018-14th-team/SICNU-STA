@@ -69,6 +69,10 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     @Override
     public ResultUtils<Object> deleteRole(int roleId) {
         try {
+            // 这是系统默认的角色 不可删除
+            if (roleId <= 4) {
+                return ResultUtils.fail("这是系统默认的角色，不可删除");
+            }
             roleDao.deleteUserRoleByRoleId(roleId);
             roleDao.deleteRoleAuthByRoleId(roleId);
             int cnt = roleDao.deleteRoleByRoleId(roleId);

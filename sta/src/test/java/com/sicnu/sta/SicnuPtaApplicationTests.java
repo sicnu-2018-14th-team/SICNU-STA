@@ -16,6 +16,7 @@ class SicnuPtaApplicationTests {
     @Test
     void contextLoads() throws SQLException {
         System.out.println(dataSource.getClass());
+        System.out.println(1);
         System.out.println(dataSource.getConnection());
     }
 }

@@ -4,7 +4,6 @@ import com.sicnu.sta.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import javax.print.DocFlavor;
 import java.util.List;
 import java.util.Map;
 
@@ -100,9 +99,44 @@ public interface ProblemDao {
     // 查询编程题信息
     Map<String, Object> queryProgramProblem(@Param("problemId") Integer problemId);
 
-    // 查询所有题目类型的 id
+    // 查询所有题目类型的 typeId
     List<Integer> queryAllTypeIdOfProblem();
 
+    // 通过比赛 id 和题目类型来查找题目
     List<Integer> queryProblemIdsByContestIdAndTypeId(@Param("contestId") Integer contestId,
                                                       @Param("typeId") Integer typeId);
+
+    // 查询题目的标签字符串
+    String queryTagsByProblemId(@Param("problemId") Integer problemId);
+
+    // 查询所有的题目 id
+    List<Integer> queryAllProblemId();
+
+    // 根据 problemId 和 typeId 来查询 realId
+    Integer queryRealIdByProblemIdAndTypeId(@Param("problemId") Integer problemId,
+                                            @Param("typeId")  Integer typeId);
+
+    // 修改选择题信息
+    void updateChoiceProblem(@Param("choiceProblem") ChoiceProblem choiceProblem);
+
+    // 根据 problemId 来查询 TestCasePath 实体类
+    TestCasePath queryTestCasePathByPathId(@Param("problemId") Integer problemId);
+
+    // 更新编程题信息
+    void updateProgramProblem(@Param("programProblem") ProgramProblem programProblem);
+
+    // 查询指定类型下的题目真实 id 分页
+    List<Integer> queryRealIdByTypeIdPaging(@Param("typeId") Integer typeId,
+                                            @Param("cnt") Integer cnt,
+                                            @Param("pageSize") Integer pageSize);
+
+    // 删除作废的路径映射
+    void deletePathByProblemId(@Param("problemId") Integer problemId);
+
+    // 根据 problemId 来查询题目名
+    String queryProgramTitleByProblemId(@Param("problemId") Integer problemId);
+
+    // 根据 problemId 来查询题目类型
+    Integer queryTypeIdByProblemId(@Param("problemId") Integer problemId);
+
 }

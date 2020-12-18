@@ -20,4 +20,26 @@ public interface AdminContestService {
      * @return ResultUtils
      */
     ResultUtils<Object> queryContestListInfo(int pageSize, int page);
+
+    /**
+     * 修改比赛信息
+     * @param contest 比赛实体类
+     * @return result
+     */
+    ResultUtils<Object> updateContestInfo(Contest contest);
+
+    /**
+     * 给班级添加比赛
+     * @param classId 班级 id
+     * @param contestId 比赛 id
+     * @return result
+     */
+    ResultUtils<Object> addContestToClass(Integer classId, Integer contestId);
+
+    /**
+     * 查询比赛结果
+     * @param contestId 比赛 id
+     * @return 比赛结果
+     */
+    ResultUtils<Object> queryContestResult(Integer contestId, Integer classId);
 }

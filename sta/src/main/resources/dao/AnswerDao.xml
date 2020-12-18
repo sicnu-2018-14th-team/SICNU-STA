@@ -6,8 +6,8 @@
 <mapper namespace="com.sicnu.sta.dao.AnswerDao">
 
     <insert id="saveUserAnswer" parameterType="Answer" useGeneratedKeys="true" keyProperty="answerId">
-        insert into answer(user_id, contest_id, problem_id, user_answer)
-        values(#{answer.userId}, #{answer.contestId}, #{answer.problemId}, #{answer.userAnswer})
+        insert into answer(user_id, contest_id, problem_id, user_answer, result, user_score)
+        values(#{answer.userId}, #{answer.contestId}, #{answer.problemId}, #{answer.userAnswer}, #{answer.result}, #{answer.userScore})
     </insert>
 
     <select id="queryUserObjectiveResult" resultType="Answer">
@@ -20,7 +20,7 @@
     </update>
 
     <select id="queryLastAnswerOfObjective" resultType="Map">
-        select problem_id, user_answer from answer
+        select * from answer
         where user_id = #{userId} and problem_id = #{problemId} and contest_id = #{contestId}
     </select>
 

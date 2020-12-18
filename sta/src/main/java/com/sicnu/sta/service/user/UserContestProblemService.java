@@ -2,6 +2,7 @@ package com.sicnu.sta.service.user;
 
 import com.sicnu.sta.utils.ResultUtils;
 
+
 public interface UserContestProblemService {
 
     /**
@@ -25,5 +26,6 @@ public interface UserContestProblemService {
      * @param contestId 比赛 id
      * @return ResultUtils
      */
-    ResultUtils<Object> queryContestAllTypeProblem(Integer contestId);
+    ResultUtils<Object> queryContestAllTypeProblem(Integer contestId, Integer userId);
+
 }

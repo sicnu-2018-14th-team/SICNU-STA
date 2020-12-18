@@ -68,10 +68,11 @@
                     if (valid) {
                         axios.post(this.global.loginUrl, this.$qs.stringify({"email": this.ruleForm.email,
                             "password": this.$md5(this.ruleForm.password)})).then((response) => {
+                            console.log(response);
                             const res = response.data;
                             console.log(this.$md5(this.ruleForm.password));
                             console.log(res);
-                            if(res.status == 1) {
+                            if(res.code == 200) {
                                 window.sessionStorage.setItem("token", res.data);
                                 that.$router.push("/home");
                             } else {

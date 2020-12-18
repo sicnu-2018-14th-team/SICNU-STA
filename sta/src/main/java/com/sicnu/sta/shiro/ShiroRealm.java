@@ -1,7 +1,9 @@
 package com.sicnu.sta.shiro;
 
+import com.sicnu.sta.dao.UserDao;
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.utils.TokenUtils;
+import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,12 +15,13 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+
 // 从 ShiroAuthToken 取得 Token 并进行身份验证和角色权限配置。
 @Service
 public class ShiroRealm extends AuthorizingRealm {
 
     @Resource
-    TokenUtils tokenUtils;
+    UserDao userDao;
 
     @Override
     public boolean supports(AuthenticationToken authenticationToken) {
@@ -27,11 +30,13 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
 
+    // 验证用户权限
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return null;
     }
 
+    // 验证用户登录
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) {
 
@@ -39,11 +44,21 @@ public class ShiroRealm extends AuthorizingRealm {
 
         String token = (String) shiroAuthToken.getCredentials();
         // 验证 token
-        LoginUser loginUser = TokenUtils.validationToken(token);
-        if (loginUser == null || loginUser.getUserId() == null || loginUser.getUserName() == null) {
-            throw new AuthenticationException("Token 无效");
+        // LoginUser loginUser = TokenUtils.validationToken(token);
+        try {
+            Claims claims = TokenUtils.validationToken(token);
+            if (claims == null) {
+                throw new AuthenticationException("Token 无效");
+            }
+            LoginUser loginUser = TokenUtils.getLoginUser(claims);
+            if (userDao.queryUserByUserIdAndUserName(loginUser) == null) {
+                throw new AuthenticationException("用户不存在");
+            }
+            return new SimpleAuthenticationInfo(loginUser, token, "ShiroRealm");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AuthenticationException("Token 非法");
         }
-        return new SimpleAuthenticationInfo(loginUser, token, "ShiroRealm");
     }
 }
 

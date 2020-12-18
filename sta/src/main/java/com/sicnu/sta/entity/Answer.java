@@ -24,10 +24,21 @@ public class Answer {
         return answerId;
     }
 
-    public Answer(Integer userId, Integer contestId, Integer problemId) {
+    public Answer(Integer answerId, Integer userId, Integer contestId, Integer problemId, String userAnswer, String result, Integer userScore) {
+        this.answerId = answerId;
         this.userId = userId;
         this.contestId = contestId;
         this.problemId = problemId;
+        this.userAnswer = userAnswer;
+        this.result = result;
+        this.userScore = userScore;
+    }
+
+    public Answer(Integer userId, Integer contestId, Integer problemId, Integer score) {
+        this.userId = userId;
+        this.contestId = contestId;
+        this.problemId = problemId;
+        this.userScore = score;
     }
 
     public Answer(Integer userId, Integer contestId, Integer problemId, String userAnswer, String result, Integer userScore) {

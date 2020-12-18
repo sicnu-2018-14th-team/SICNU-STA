@@ -23,8 +23,6 @@ public class MessageConsumerController {
     @Resource
     ProblemDao problemDao;
 
-    Map<Integer, String> resultMsg = new HashMap<>();
-
     @KafkaListener(topics = "result")
     public void listen(ConsumerRecord<String, String> record) {
         Optional<String> kafkaMessage = Optional.ofNullable(record.value());

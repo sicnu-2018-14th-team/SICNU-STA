@@ -129,7 +129,7 @@ public class AdminProblemServiceImpl implements AdminProblemService {
             problemDao.createChoiceProblem(choiceProblem);
             int choiceProblemId = choiceProblem.getProblemId();
             if (choiceProblemId > 0) {
-                Problem problem = new Problem(choiceProblem.getUserId(), choiceProblem.getDifficulty(), choiceProblem.getAvailable(), choiceProblemId, TYPE_PROGRAM);
+                Problem problem = new Problem(choiceProblem.getUserId(), choiceProblem.getDifficulty(), choiceProblem.getAvailable(), choiceProblemId, TYPE_CHOICE);
                 return addProblemToContest(problem, choiceProblem.getContestId(), choiceProblem.getScore(), choiceProblem.getTagList());
             } else {
                 return ResultUtils.fail("创建选择题失败");
@@ -232,7 +232,6 @@ public class AdminProblemServiceImpl implements AdminProblemService {
             int realId = programProblem.getProblemId();
             if (realId > 0) {
                 Problem problem = new Problem(programProblem.getUserId(), programProblem.getDifficulty(), programProblem.getAvailable(), realId, TYPE_PROGRAM);
-                System.out.println(problem);
                 addProblemToContest(problem, programProblem.getContestId(), programProblem.getScore(), programProblem.getTagList());
                 problemDao.updateProblemIdFromTestCasePath(problem.getProblemId(), programProblem.getPathId());
                 return ResultUtils.success();

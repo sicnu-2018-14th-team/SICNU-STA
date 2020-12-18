@@ -10,4 +10,10 @@
         values(#{judgeProblem.userId}, #{judgeProblem.title}, #{judgeProblem.ans}, #{judgeProblem.score}, #{judgeProblem.available}, #{judgeProblem.difficulty})
     </insert>
 
+    <update id="updateJudgeProblem">
+        update judge_problem
+        set title = #{judgeProblem.title}, ans = #{judgeProblem.ans}, score = #{judgeProblem.score}, difficulty = #{judgeProblem.difficulty}
+        where problem_id = #{judgeProblem.problemId}
+    </update>
+
 </mapper>

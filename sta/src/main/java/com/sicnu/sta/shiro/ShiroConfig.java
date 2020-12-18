@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
     /** 使用自定义的 Realm 和关闭 Session 管理器
      * @param realm 自定义的 Realm
      * @return SecurityManager

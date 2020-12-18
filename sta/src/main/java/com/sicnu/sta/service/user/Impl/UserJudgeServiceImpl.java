@@ -1,9 +1,7 @@
 package com.sicnu.sta.service.user.Impl;
 
 import com.alibaba.fastjson.JSON;
-import com.sicnu.sta.dao.AnswerDao;
-import com.sicnu.sta.dao.ContestProblemDao;
-import com.sicnu.sta.dao.ProblemDao;
+import com.sicnu.sta.dao.*;
 import com.sicnu.sta.entity.*;
 import com.sicnu.sta.service.user.UserJudgeService;
 import com.sicnu.sta.utils.ResultUtils;
@@ -35,7 +33,13 @@ public class UserJudgeServiceImpl implements UserJudgeService {
     ProblemDao problemDao;
 
     @Resource
+    UserDao userDao;
+
+    @Resource
     UserServiceImpl userService;
+
+    @Resource
+    ContestDao contestDao;
 
 
     @Resource
@@ -56,13 +60,14 @@ public class UserJudgeServiceImpl implements UserJudgeService {
     @Override
     public ResultUtils<Object> saveAnswers(ReceiveAnswers receiveAnswers) {
         try {
+            queryContestIsMyContest(receiveAnswers.getUserId(), receiveAnswers.getContestId());
             int cnt = receiveAnswers.getProblemIds().size();
             Integer userId = receiveAnswers.getUserId();
             Integer contestId = receiveAnswers.getContestId();
             for (int i = 0; i < cnt; i ++) {
                 Integer problemId = receiveAnswers.getProblemIds().get(i);
                 String userAnswer = receiveAnswers.getUserAnswers().get(i);
-                Answer answer = new Answer(userId, contestId, problemId, userAnswer);
+                Answer answer = new Answer(userId, contestId, problemId, userAnswer, null, 0);
                 /*
                  * 查询之前是否有提交过该题的答案
                  * 如果没有则向数据库中插入
@@ -88,22 +93,42 @@ public class UserJudgeServiceImpl implements UserJudgeService {
      *
      * @param userId    用户 id
      * @param contestId 比赛 id
-     * @param typeId 题目类型 id
      * @return ResultUtils
      */
     @Override
-    public ResultUtils<Object> queryResultOfObjective(int userId, int contestId, int typeId) {
+    public ResultUtils<Object> queryResultOfObjective(int userId, int contestId) {
         try {
-            List<Integer> problemIds = contestProblemDao.queryProblemIdList(contestId, typeId);
+            Map<String, Object> isMyContest = userDao.queryContestIsMyContest(userId, contestId);
+            if (isMyContest == null) {
+                return ResultUtils.success(-1);
+            }
+            List<Integer> problemId = contestProblemDao.queryProblemIdsForContest(contestId);
+            List<Integer> problemIds  = new ArrayList<>();
+            for (int i = 1; i <= 3; i ++) {
+                for (Integer it : problemId) {
+                    Integer realId = problemDao.queryRealIdByProblemIdAndTypeId(it, i);
+                    if (realId != null) {
+                        problemIds.add(it);
+                    }
+                }
+            }
             List<Answer> answers = new ArrayList<>();
             // 遍历每一道题
             for (Integer it : problemIds) {
+                //Map<String, Integer> map = problemDao.queryProblemRealId(it);
+                Integer typeId = problemDao.queryTypeIdByProblemId(it);
                 Answer answer = answerDao.queryUserObjectiveResult(userId, contestId, it);
                 // 评判结果为空，说明还未评判用户的答案
-                if (answer.getResult() == null) {
-                    // 评判用户的答案
-                    judgeObjective(userId, contestId, it, answer.getUserAnswer());
-                    answer = answerDao.queryUserObjectiveResult(userId, contestId, it);
+                   if (answer.getResult() == null) {
+                    // typeId 为 3 则为编程题
+                    if (typeId == 3) {
+                        answer = new Answer(userId, contestId, it, null, NO, 0);
+                        answerDao.updateProgramAnswer(answer);
+                    } else {
+                        // 评判用户的答案
+                        judgeObjective(userId, contestId, it, answer.getUserAnswer());
+                        answer = answerDao.queryUserObjectiveResult(userId, contestId, it);
+                    }
                 }
                 answers.add(answer);
             }
@@ -151,6 +176,7 @@ public class UserJudgeServiceImpl implements UserJudgeService {
     @Override
     public ResultUtils<Object> submitProgramProblem(SubmitProgram submitProgram) {
         try {
+            queryContestIsMyContest(submitProgram.getUserId(), submitProgram.getContestId());
             submitProgram.setSubmitTime(userService.getDateTime());
             problemDao.insertSubmitProgram(submitProgram);
             // 插入提交记录成功
@@ -182,7 +208,8 @@ public class UserJudgeServiceImpl implements UserJudgeService {
                 }
 
                 // 查询判题结果
-                JudgeResult judgeResult;
+                JudgeResult judgeResult = null;
+                int cnt = 0;
                 while (true) {
                     SubmitProgram submitProgramResult = problemDao.querySubmitResult(submitProgram.getSubmitId());
                     if (submitProgramResult.getResult() != null) {
@@ -190,9 +217,18 @@ public class UserJudgeServiceImpl implements UserJudgeService {
                         judgeResult = JSON.parseObject(submitProgramResult.getResult(), JudgeResult.class);
                         break;
                     }
+                    if (cnt >= 1e9) {
+                        List<Object> errorSubmit = new ArrayList<>();
+                        String theResult = "提交错误";
+                        errorSubmit.add(theResult);
+                        JudgeResult judgeResult1 = new JudgeResult("系统错误，请重新提交");
+                        errorSubmit.add(judgeResult1);
+                        return ResultUtils.success(errorSubmit);
+                    }
                 }
+                // flag = 1 代表答案正确
                 int flag = 1;
-                if (judgeResult.getResult() == null) flag = 0;
+                if (judgeResult == null || judgeResult.getResult() == null) flag = 0;
                 else {
                     for (ResultCase resultCase : judgeResult.getResult()) {
                         if (resultCase.getStatus() != 0) {
@@ -212,8 +248,19 @@ public class UserJudgeServiceImpl implements UserJudgeService {
                 // 如果是第一次提交该题
                 if (bestAnswer == null) {
                     answerDao.saveProgramAnswer(answer);
-                } else if((flag == 1) || NO.equals((String) bestAnswer.get("result"))) {
+                } else if((flag == 1) || NO.equals((String) bestAnswer.get("result")) || bestAnswer.get("result") == null) {
                     answerDao.updateProgramAnswer(answer);
+                }
+                // 提交总数和正确率
+                // 如果之前已经正确了，那么提交总数和正确总数不会再增加
+                if (bestAnswer == null || NO.equals((String) bestAnswer.get("result"))) {
+                    int a = 1, b = 0;
+                    // 此次回答正确
+                    if (YES.equals(theResult)) {
+                        b = 1;
+                    }
+                    // 更新提交数和正确数
+                    contestProblemDao.updateTotalAndCorrect(a, b, submitProgram.getContestId(), submitProgram.getProblemId());
                 }
                 List<Object> resData = new ArrayList<>();
                 resData.add(theResult);
@@ -225,6 +272,23 @@ public class UserJudgeServiceImpl implements UserJudgeService {
         } catch (Exception e) {
             log.error("提交编程题异常", e);
             return ResultUtils.error();
+        }
+    }
+
+    // 查询该比赛是否是我的题目集，如果不是就加入
+    public void queryContestIsMyContest(Integer userId, Integer contestId) {
+        Map<String, Object> isMyContest = userDao.queryContestIsMyContest(userId, contestId);
+        // 该比赛不在我的题目集下
+        if (isMyContest == null) {
+            contestDao.addContestToStudent(contestId, userId);
+            List<Integer> problemIds = contestProblemDao.queryProblemIdsForContest(contestId);
+            for (Integer problemId : problemIds) {
+                Answer answer = answerDao.queryUserObjectiveResult(userId, contestId, problemId);
+                if (answer == null) {
+                    answer = new Answer(userId, contestId, problemId,0);
+                    answerDao.saveUserAnswer(answer);
+                }
+            }
         }
     }
 }

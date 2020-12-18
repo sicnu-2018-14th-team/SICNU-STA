@@ -32,4 +32,67 @@
         select count(*) from ${tableName}
     </select>
 
+    <insert id="createClass" parameterType="Class" useGeneratedKeys="true" keyProperty="classId">
+        insert into class(class_name, teacher_id, teacher_name, description, code)
+        values (#{class.className}, #{class.teacherId}, #{class.teacherName}, #{class.description}, #{class.code})
+    </insert>
+
+    <select id="queryClassList" resultType="Map">
+        select * from class limit #{cnt}, #{pageSize}
+    </select>
+
+    <delete id="deleteClassByClassId">
+        delete from class where class_id = #{classId}
+    </delete>
+
+    <select id="queryClassByClassId" resultType="Map">
+        select * from class where class_id = #{classId}
+    </select>
+
+    <update id="updateClassInfo">
+        update class set class_name = #{class.className}, description = #{class.description}
+        where class_id = #{class.classId}
+    </update>
+
+    <select id="queryAdminList" resultType="Map">
+        select * from user where user_id in (
+            select user_id from user_role where role_id = #{roleId}
+        )
+    </select>
+
+    <select id="queryMyCreateProblemIds" resultType="Integer">
+        select real_id from problem where user_id = #{userId} and type_id = #{typeId}
+        limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryMyCreateContest" resultType="Map">
+        select * from contest where user_id = #{userId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryMyCreateClass" resultType="Map">
+        select * from class where teacher_id = #{userId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryMyCreateProblemCnt" resultType="Integer">
+        select count(*) from problem where user_id = #{userId} and type_id = #{typeId}
+    </select>
+
+    <select id="queryMyCreateContestCnt" resultType="Integer">
+        select count(*) from contest where user_id = #{userId}
+    </select>
+
+    <select id="queryMyCreateClassCnt" resultType="Integer">
+        select count(*) from class where teacher_id = #{userId}
+    </select>
+
+    <select id="queryClassCnt" resultType="Integer">
+        select count(*) from class
+    </select>
+
+    <select id="queryClassContest" resultType="Map">
+        select * from contest where contest_id in (
+            select contest_id from class_contest where class_id = #{classId}
+        )
+    </select>
+
 </mapper>

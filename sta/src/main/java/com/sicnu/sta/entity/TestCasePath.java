@@ -12,6 +12,12 @@ public class TestCasePath {
     // 对应的编程题 id
     private Integer problemId;
 
+    public TestCasePath(Integer pathId, String uuid, Integer problemId) {
+        this.pathId = pathId;
+        this.uuid = uuid;
+        this.problemId = problemId;
+    }
+
     public TestCasePath(String uuid) {
         this.uuid = uuid;
     }

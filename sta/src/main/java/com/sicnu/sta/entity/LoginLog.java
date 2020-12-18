@@ -1,10 +1,5 @@
 package com.sicnu.sta.entity;
 
-import com.sicnu.sta.controller.user.UserController;
-import com.sicnu.sta.service.user.Impl.UserServiceImpl;
-import org.apache.kafka.common.security.auth.Login;
-
-import javax.annotation.Resource;
 
 /**
  * 登录日志实体类

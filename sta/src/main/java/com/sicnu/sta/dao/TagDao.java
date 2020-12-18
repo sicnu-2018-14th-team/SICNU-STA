@@ -21,4 +21,10 @@ public interface TagDao {
 
     // 根据标签 id 来查找含有此标签的题目
     String queryProblemByTag(@Param("tagId") int tagId);
+
+    // 根据标签来查找标签名
+    String queryTagNameByTagId(@Param("tagId") Integer tagId);
+
+    void updateTagProblems(@Param("tagId") Integer tagId,
+                           @Param("problem") String problem);
 }

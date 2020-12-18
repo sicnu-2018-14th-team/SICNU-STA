@@ -18,9 +18,9 @@ public class ConnectionFactoryConfig  {
     private Connection getConnection() throws SQLException {
         Properties properties = new Properties();
         // 这里需要自己进行加密
-        String user = "nonameless";
-        String password = "nonameless";
-        String url = "jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=false&useAffectedRows=true";
+        String user = "root";
+        String password = "123456";
+        String url = "jdbc:mysql://localhost:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST";
         String driverClassName = "com.mysql.cj.jdbc.Driver";
         properties.put("driverClassName",driverClassName);
         properties.put("url",url);

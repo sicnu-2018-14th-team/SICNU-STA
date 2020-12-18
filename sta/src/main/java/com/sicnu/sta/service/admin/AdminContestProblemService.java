@@ -37,4 +37,14 @@ public interface AdminContestProblemService {
      * @return ResultUtils
      */
     ResultUtils<Object> deleteContestProblem(Integer contestId, Integer problemId);
+
+    /**
+     * 分页查询比赛下的题目
+     * @param contestId 比赛 id
+     * @param typeId 类型 id
+     * @param page 当前页
+     * @param pageSize 页大小
+     * @return 数据
+     */
+    ResultUtils<Object> queryProblemListPaging(int contestId, int typeId, int page, int pageSize);
 }

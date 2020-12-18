@@ -1,9 +1,14 @@
 package com.sicnu.sta.dao;
 
+import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
+import com.sicnu.sta.entity.Class;
 import com.sicnu.sta.entity.LoginLog;
+import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.Primary;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -34,4 +39,59 @@ public interface UserDao {
 
     // 插入用户登录日志
     void insertLoginLog(@Param("loginLog")LoginLog loginLog);
+
+    // 根据 userId 和 userName 来判断用户是否存在
+    User queryUserByUserIdAndUserName(@Param("loginUser")LoginUser loginUser);
+
+    // 根据userId 获取用户信息
+    Map<String, Object> queryUserInfo(@Param("userId") Integer userId);
+
+    // 给新建的用户默认分配一个学生角色
+    void addStudentToNewUser(@Param("userId") Integer userId,
+                             @Param("roleId") Integer roleId);
+
+    // 根据邀请码来查找班级列表
+    List<Map<String, Object>> queryClassListByCode(@Param("code") String code);
+
+    // 用户加入班级
+    int studentJoinTheClass(@Param("classId") Integer classId,
+                            @Param("studentId") Integer studentId);
+
+    // 修改用户信息
+    void updateUserInfo(@Param("sex") String sex,
+                        @Param("birthday") String birthday,
+                        @Param("realName") String realName,
+                        @Param("address") String address,
+                        @Param("phone") String phone,
+                        @Param("postCode") String postCode,
+                        @Param("userId") Integer userId);
+
+    // 获取用户班级信息
+    List<Map<String, Object>> getClassInfo(@Param("userId") Integer userId);
+
+    // 查询班级下的学生列表
+    List<Integer> queryClassStudents(@Param("classId") Integer classId);
+
+    // 退出班级
+    void exitClass(@Param("classId") Integer classId,
+                   @Param("userId") Integer userId);
+
+    // 查询老师数量
+    Integer queryTeacherCnt();
+
+    // 查询学生数量
+    Integer queryStudentCnt();
+
+    // 查询题目数量
+    Integer queryProblemCnt();
+
+    // 查询比赛数量
+    Integer queryContestCnt();
+
+    // 查询班级数量
+    Integer queryClassCnt();
+
+    // 查询比赛是否在我的题目集下
+    Map<String, Object> queryContestIsMyContest(@Param("userId") Integer userId,
+                                                @Param("contestId") Integer contestId);
 }
