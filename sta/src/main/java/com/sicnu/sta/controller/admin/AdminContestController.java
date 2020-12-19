@@ -3,11 +3,11 @@ package com.sicnu.sta.controller.admin;
 import com.sicnu.sta.entity.Contest;
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.log.MyOpLog;
-import com.sicnu.sta.service.admin.impl.AdminContestProblemServiceImpl;
 import com.sicnu.sta.service.admin.impl.AdminContestServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
-import org.apache.kafka.common.security.auth.Login;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +24,7 @@ public class AdminContestController {
 
     // 创建比赛
     @MyOpLog(value = "创建比赛")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/create/contest")
     public ResultUtils<Object> createContest(@RequestBody Contest contest) {
         // 获取当前登录用户
@@ -36,6 +37,7 @@ public class AdminContestController {
 
     // 查询所有题目集列表信息
     @MyOpLog(value = "查询比赛列表信息")
+    @RequiresRoles(value = {"SuperAdmin", "Admin"}, logical = Logical.OR)
     @PostMapping("/query/contest/list")
     public ResultUtils<Object> queryContestListInfo(@RequestParam(value = "pageSize") int pageSize,
                                                     @RequestParam(value = "page") int page) {
@@ -44,6 +46,7 @@ public class AdminContestController {
 
     // 修改比赛信息
     @MyOpLog(value = "修改比赛信息")
+    @RequiresRoles(value = {"SuperAdmin", "Admin"}, logical = Logical.OR)
     @PostMapping("/update/contest-info")
     public ResultUtils<Object> updateContestInfo(@RequestBody Contest contest) {
         return adminContestService.updateContestInfo(contest);
@@ -51,6 +54,7 @@ public class AdminContestController {
 
     // 给班级添加比赛
     @MyOpLog(value = "给班级添加比赛")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/add-contest-to-class")
     public ResultUtils<Object> addContestToClass(@RequestParam(value = "contestId") Integer contestId,
                                                  @RequestParam(value = "classId") Integer classId) {
@@ -59,6 +63,7 @@ public class AdminContestController {
 
     // 导出比赛结果
     @MyOpLog(value = "导出比赛结果")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/query/contest-result")
     public ResultUtils<Object> queryContestResult(@RequestParam(value = "contestId") Integer contestId,
                                                   @RequestParam(value = "classId") Integer classId) {

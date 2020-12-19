@@ -94,4 +94,7 @@ public interface UserDao {
     // 查询比赛是否在我的题目集下
     Map<String, Object> queryContestIsMyContest(@Param("userId") Integer userId,
                                                 @Param("contestId") Integer contestId);
+
+    // 根据用户 id 来查询角色名
+    String queryRoleNameByUserId(@Param("userId") Integer userId);
 }

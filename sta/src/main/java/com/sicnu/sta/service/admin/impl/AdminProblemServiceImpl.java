@@ -1,10 +1,7 @@
 package com.sicnu.sta.service.admin.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.sicnu.sta.dao.ContestProblemDao;
-import com.sicnu.sta.dao.ProblemDao;
-import com.sicnu.sta.dao.TagDao;
-import com.sicnu.sta.dao.UserDao;
+import com.sicnu.sta.dao.*;
 import com.sicnu.sta.entity.*;
 import com.sicnu.sta.service.admin.AdminProblemService;
 import com.sicnu.sta.service.user.Impl.UserServiceImpl;
@@ -41,6 +38,12 @@ public class AdminProblemServiceImpl implements AdminProblemService {
 
     @Resource
     UserDao userDao;
+
+    @Resource
+    ContestDao contestDao;
+
+    @Resource
+    AnswerDao answerDao;
 
     @Resource
     ContestProblemDao contestProblemDao;
@@ -252,6 +255,11 @@ public class AdminProblemServiceImpl implements AdminProblemService {
         if (problemId > 0) {
             // 如果需要向比赛中添加该题目
             if (contestId != null) {
+                List<Integer> userIds = contestDao.queryContestUserCnt(contestId);
+                for (Integer userId : userIds) {
+                    Answer answer = new Answer(userId, contestId, problemId, 0);
+                    answerDao.saveUserAnswer(answer);
+                }
                 ContestProblem contestProblem = new ContestProblem(contestId, problemId, score);
                 contestProblemDao.addProblemToContest(contestProblem);
             }

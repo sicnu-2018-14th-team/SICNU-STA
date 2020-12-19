@@ -7,7 +7,6 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -109,7 +108,6 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
             httpServletResponse.setHeader("Access-Control-Expose-Headers", "token");
             httpServletResponse.addHeader(AUTHORIZATION_HEADER, this.token);
         } else {
-
             httpServletResponse.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
             // 设置 Json 格式返回
             httpServletResponse.setContentType("application/json;charset=UTF-8");
@@ -117,7 +115,7 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
                 // PrintWriter 输出 Response 返回信息
                 PrintWriter writer = httpServletResponse.getWriter();
                 ObjectMapper mapper = new ObjectMapper();
-                ResultUtils<Object> myResponse = new ResultUtils<Object>(401, "非授权访问");
+                ResultUtils<Object> myResponse = new ResultUtils<>(401, "非授权访问");
                 // 将对象输出为 JSON 格式。可以通过重写 MyResponse 的 toString() ，直接通过 myResponse.toString() 即可
                 writer.write(mapper.writeValueAsString(myResponse));
             } catch (IOException e) {

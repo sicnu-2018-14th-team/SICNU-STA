@@ -276,6 +276,7 @@ public class UserJudgeServiceImpl implements UserJudgeService {
     }
 
     // 查询该比赛是否是我的题目集，如果不是就加入
+    @Override
     public void queryContestIsMyContest(Integer userId, Integer contestId) {
         Map<String, Object> isMyContest = userDao.queryContestIsMyContest(userId, contestId);
         // 该比赛不在我的题目集下

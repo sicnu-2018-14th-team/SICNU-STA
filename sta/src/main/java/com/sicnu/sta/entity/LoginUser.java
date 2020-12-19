@@ -8,6 +8,7 @@ public class LoginUser {
     private static final long serialVersionUID = 1L;
     private Integer userId;
     private String userName;
+    private String role;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -27,5 +28,22 @@ public class LoginUser {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginUser{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

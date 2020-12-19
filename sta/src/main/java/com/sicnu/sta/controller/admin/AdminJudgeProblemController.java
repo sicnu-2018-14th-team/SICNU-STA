@@ -6,6 +6,8 @@ import com.sicnu.sta.log.MyOpLog;
 import com.sicnu.sta.service.admin.impl.AdminJudgeProblemServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ public class AdminJudgeProblemController {
 
     // 创建判断题
     @MyOpLog(value = "创建判断题")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/create/problem/judgeproblem")
     public ResultUtils<Object> addJudgeProblem(@RequestBody JudgeProblem judgeProblem) {
 

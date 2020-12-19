@@ -113,4 +113,10 @@
         select * from user_contest where user_id = #{userId} and contest_id = #{contestId}
     </select>
 
+    <select id="queryRoleNameByUserId" resultType="String">
+        select role_name from role where role_id = (
+            select role_id from user_role where user_id = #{userId}
+        )
+    </select>
+
 </mapper>

@@ -1,8 +1,6 @@
 package com.sicnu.sta.service.admin.impl;
 
-import com.sicnu.sta.dao.ContestProblemDao;
-import com.sicnu.sta.dao.JudgeProblemDao;
-import com.sicnu.sta.dao.ProblemDao;
+import com.sicnu.sta.dao.*;
 import com.sicnu.sta.entity.*;
 import com.sicnu.sta.service.admin.AdminJudgeProblemService;
 import com.sicnu.sta.utils.ResultUtils;
@@ -10,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -23,6 +22,12 @@ public class AdminJudgeProblemServiceImpl implements AdminJudgeProblemService {
 
     @Resource
     ContestProblemDao contestProblemDao;
+
+    @Resource
+    ContestDao contestDao;
+
+    @Resource
+    AnswerDao answerDao;
 
     @Resource
     AdminTagServiceImpl tagService;
@@ -49,6 +54,11 @@ public class AdminJudgeProblemServiceImpl implements AdminJudgeProblemService {
                     // 如果需要向比赛中添加该题目
                     Integer contestId = judgeProblem.getContestId();
                     if (contestId != null) {
+                        List<Integer> userIds = contestDao.queryContestUserCnt(contestId);
+                        for (Integer userId : userIds) {
+                            Answer answer = new Answer(userId, contestId, problemId, 0);
+                            answerDao.saveUserAnswer(answer);
+                        }
                         ContestProblem contestProblem = new ContestProblem(contestId, problemId, judgeProblem.getScore());
                         contestProblemDao.addProblemToContest(contestProblem);
                     }

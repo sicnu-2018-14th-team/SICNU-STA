@@ -3,6 +3,8 @@ package com.sicnu.sta.controller.admin;
 import com.sicnu.sta.log.MyOpLog;
 import com.sicnu.sta.service.admin.impl.AdminContestProblemServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,7 @@ public class AdminContestProblemController {
 
     // 查询比赛下对应类型的题目
     @MyOpLog(value = "查询比赛的题目")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/query-contest-problem")
     public ResultUtils<Object> queryContestProblem(@RequestParam(value = "contestId") int contestId,
                                                    @RequestParam(value = "typeId") int typeId,
@@ -27,6 +30,7 @@ public class AdminContestProblemController {
 
     // 向比赛中添加题目
     @MyOpLog(value = "向比赛中添加题目")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/add-problem-to-contest")
     public ResultUtils<Object> addProblemToContest(@RequestParam(value = "contestId") Integer contestId,
                                     @RequestParam(value = "problemId") Integer problemId,
@@ -36,6 +40,7 @@ public class AdminContestProblemController {
 
     // 删除比赛中的题目
     @MyOpLog(value = "删除比赛中的题目")
+    @RequiresRoles(value = {"SuperAdmin", "Admin", "Teacher"}, logical = Logical.OR)
     @PostMapping("/delete-problem-to-contest")
     public ResultUtils<Object> deleteProblemToContest(@RequestParam(value = "contestId") Integer contestId,
                                        @RequestParam(value = "problemId") Integer problemId){

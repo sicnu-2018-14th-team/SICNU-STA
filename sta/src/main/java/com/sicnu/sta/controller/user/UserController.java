@@ -38,9 +38,9 @@ public class UserController {
 
 
     // 更改用户密码
-    @PostMapping("/update_password")
+    @PostMapping("/update-password")
     public ResultUtils<Object> updatePassword(@RequestParam(value = "email") String email,
-                                      @RequestParam(value = "password") String password) {
+                                              @RequestParam(value = "password") String password) {
 
         return userService.updateUserPassword(email, password);
     }

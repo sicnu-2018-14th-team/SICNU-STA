@@ -1,7 +1,6 @@
 package com.sicnu.sta.utils;
 
 import com.sicnu.sta.entity.LoginUser;
-import com.sicnu.sta.entity.User;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
@@ -22,7 +21,7 @@ public class TokenUtils {
      * @param user 用户实体类
      * @return String token
      */
-    public static String createToken(User user, long current) {
+    public static String createToken(LoginUser user, long current) {
         String token;
         try {
             Date expiresAt = new Date(current + EXPIRE_TIME);
@@ -32,6 +31,7 @@ public class TokenUtils {
             builder.setAudience(user.getUserName());
             builder.setIssuedAt(new Date());
             builder.claim("current", current);
+            builder.claim("role", user.getRole());
             builder.setExpiration(expiresAt);
             builder.signWith(SignatureAlgorithm.RS256, RsaUtils.getPrivateKey());
             token = builder.compact();
@@ -56,6 +56,7 @@ public class TokenUtils {
             LoginUser user = new LoginUser();
             user.setUserId(Integer.parseInt(claims.getId()));
             user.setUserName(claims.getAudience());
+            user.setRole((String) claims.get("role"));
             return claims;
         } catch (ExpiredJwtException e) {
             return e.getClaims();
@@ -69,6 +70,7 @@ public class TokenUtils {
         LoginUser loginUser = new LoginUser();
         loginUser.setUserId(Integer.parseInt(claims.getId()));
         loginUser.setUserName(claims.getAudience());
+        loginUser.setRole((String) claims.get("role"));
         return loginUser;
     }
 
@@ -101,9 +103,10 @@ public class TokenUtils {
             // token 过期时间
             Date expiration = (Date) claims.getExpiration();
             RedisUtils redisUtils = getBean(RedisUtils.class, request);
-            User user = new User();
+            LoginUser user = new LoginUser();
             user.setUserName(claims.getAudience());
             user.setUserId(Integer.parseInt(claims.getId()));
+            user.setRole((String) claims.get("role"));
             String uid = user.getUserId().toString();
             if (!expiration.before(new Date(System.currentTimeMillis() + 60 * 1000))) {
                 // 还未过期，不用刷新

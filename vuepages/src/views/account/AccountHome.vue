@@ -26,7 +26,12 @@
         data() {
             return {
                 programUrl: require("../../assets/imgs/program.svg"),
+                isShowAside: true,
             }
+        },
+
+        created() {
+            this.isShowAside = true;
         },
 
         methods: {
@@ -51,19 +56,19 @@
 <style scoped>
 
     #nav {
-        height: 60px;
+        height: 70px;
         background-color: #555555;
         color: #ffffff;
     }
 
     #nav div{
-        margin-top: 6px;
+        margin-top: 8px;
     }
 
     .logo {
         display: inline-block;
         margin-right: 2%;
-        line-height: 50px;
+        line-height: 55px;
     }
 
     .logo span {
@@ -72,7 +77,7 @@
     }
 
     .btn-menu {
-        display: inline-block;
+        display: block;
         float: right;
         margin-right: 2%;
     }

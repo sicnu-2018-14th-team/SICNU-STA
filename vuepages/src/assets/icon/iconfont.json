@@ -1,0 +1,100 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "428024",
+      "name": "列表",
+      "font_class": "liebiao",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "736503",
+      "name": "权限",
+      "font_class": "quanxian",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "1128944",
+      "name": "列表",
+      "font_class": "yewubaobiao",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1136073",
+      "name": "创建",
+      "font_class": "chuangjian",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "1305474",
+      "name": "权限",
+      "font_class": "quanxian1",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "3775369",
+      "name": "论文题目",
+      "font_class": "lunwentimu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "3930502",
+      "name": "老师",
+      "font_class": "laoshi",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "5747608",
+      "name": "列表",
+      "font_class": "liebiao1",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "6061397",
+      "name": "创建",
+      "font_class": "chuangjian1",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "7588130",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "7738015",
+      "name": "用户",
+      "font_class": "yonghu1",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "7900764",
+      "name": "管理员",
+      "font_class": "guanliyuan",
+      "unicode": "e52d",
+      "unicode_decimal": 58669
+    },
+    {
+      "icon_id": "12694609",
+      "name": "列表",
+      "font_class": "liebiao2",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

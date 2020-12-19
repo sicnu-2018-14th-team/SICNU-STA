@@ -1,7 +1,6 @@
 html {
     height: 100%;
 }
-
 body {
     margin: 0 auto;
     padding: 0;
@@ -17,6 +16,10 @@ div, form, ul, ol, li, span, p {
     padding: 0;
     border: 0;
 }
+
+/* p{
+    display: inline-block;
+} */
 
 img, a img {
     border: 0;

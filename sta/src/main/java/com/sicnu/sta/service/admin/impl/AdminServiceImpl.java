@@ -464,7 +464,7 @@ public class AdminServiceImpl implements AdminService {
             Integer problemId = programProblem.getProblemId();
             TestCasePath testCasePath = problemDao.queryTestCasePathByPathId(problemId);
             // 不为空并且 pathId > 0 则说明上传了新的测试文件
-            if (testCasePath != null && programProblem.getPathId() > 0) {
+            if (testCasePath != null && programProblem.getPathId() != null && programProblem.getPathId() > 0) {
                 String path = UPLOAD_FOLDER + testCasePath.getUuid();
                 // 删除数据库中的记录
                 problemDao.deletePathByProblemId(problemId);

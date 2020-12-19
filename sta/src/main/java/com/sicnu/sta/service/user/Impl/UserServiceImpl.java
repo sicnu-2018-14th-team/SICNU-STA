@@ -37,6 +37,9 @@ public class UserServiceImpl implements UserService {
     private ContestProblemDao contestProblemDao;
 
     @Resource
+    private UserJudgeServiceImpl userJudgeService;
+
+    @Resource
     RedisUtils redisUtils;
 
 
@@ -63,7 +66,11 @@ public class UserServiceImpl implements UserService {
                 loginLog = LoginLog.success(ip, user, getDateTime());
                 userDao.insertLoginLog(loginLog);
                 long current = System.currentTimeMillis();
-                String token = TokenUtils.createToken(user, current);
+                LoginUser loginUser = new LoginUser();
+                loginUser.setUserName(user.getUserName());
+                loginUser.setUserId(user.getUserId());
+                loginUser.setRole(userDao.queryRoleNameByUserId(user.getUserId()));
+                String token = TokenUtils.createToken(loginUser, current);
                 redisUtils.set(user.getUserId().toString(), current, 30 * 60 * 8);
                 return ResultUtils.success(token);
             }
@@ -124,13 +131,14 @@ public class UserServiceImpl implements UserService {
             }
             int flag = userDao.updateUserPassword(email, password);
             if(flag == 1) {
+                redisUtils.del(user.getUserId().toString());
                 return ResultUtils.success();
             } else {
-                return ResultUtils.fail();
+                return ResultUtils.fail("更改密码失败！");
             }
         } catch (Exception e) {
             logger.error("更新用户密码异常：", e);
-            return ResultUtils.error();
+            return ResultUtils.error(e.getMessage());
         }
     }
 
@@ -252,25 +260,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultUtils<Object> studentJoinTheClass(Integer classId, Integer studentId) {
         try {
-            int cnt = userDao.studentJoinTheClass(classId, studentId);
-            // 大于 0 加入成功
-            if (cnt > 0) {
-                List<Integer> contestIds = contestDao.queryClassContestIds(classId);
-                for (Integer contestId : contestIds) {
-                    contestDao.addContestToStudent(contestId, studentId);
-                    List<Integer> problemIds = contestProblemDao.queryProblemIdsForContest(contestId);
-                    for (Integer problemId : problemIds) {
-                        Answer answer = answerDao.queryUserObjectiveResult(studentId, contestId, problemId);
-                        if (answer == null) {
-                            answer = new Answer(studentId, contestId, problemId,0);
-                            answerDao.saveUserAnswer(answer);
-                        }
-                    }
-                }
-                return ResultUtils.success();
-            } else {
-                return ResultUtils.fail("加入班级失败");
-            }
+            userDao.studentJoinTheClass(classId, studentId);
+            List<Integer> contestIds = contestDao.queryClassContestIds(classId);
+            for (Integer contestId : contestIds)
+                userJudgeService.queryContestIsMyContest(studentId, contestId);
+            return ResultUtils.success();
         } catch (Exception e) {
             logger.error("学生加入班级失败", e);
             return ResultUtils.error(e.getMessage());

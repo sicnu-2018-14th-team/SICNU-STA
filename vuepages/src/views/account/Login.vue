@@ -7,9 +7,8 @@
             </el-image>
         </div>
         <div style="float: left; margin-left: 10px;">
-            <p class="login-title">欢迎登陆</p>
+            <p class="login-title">欢迎登录</p>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="50px" class="demo-ruleForm">
-
                 <el-form-item prop="email">
                     <span class="add-border" style="display: inline-block;">
                         <el-image
@@ -28,7 +27,7 @@
                     </span>
                     <el-input class="el-input-wid" v-model="ruleForm.password" placeholder="密码" show-password></el-input>
                 </el-form-item>
-                <el-link href="" target="_blank" style="margin-left:76%;">忘记密码?</el-link>
+                <el-button type="text" style="margin-left:76%;" @click="goupdate()">忘记密码?</el-button>
                 <el-form-item style="margin-top: 20px; margin-left: 15%;">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -64,17 +63,17 @@
 
             submitForm(formName) {
                 const that = this;
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        // this.$router.push('/home')
                         axios.post(this.global.loginUrl, this.$qs.stringify({"email": this.ruleForm.email,
                             "password": this.$md5(this.ruleForm.password)})).then((response) => {
-                            console.log(response);
                             const res = response.data;
-                            console.log(this.$md5(this.ruleForm.password));
-                            console.log(res);
-                            if(res.code == 200) {
+                            // console.log(this.$md5(this.ruleForm.password));
+                            if(res.code === 200) {
                                 window.sessionStorage.setItem("token", res.data);
-                                that.$router.push("/home");
+                                that.$router.push("/homePage/contest-list");
                             } else {
                                 this.$message({
                                     showClose: true,
@@ -89,6 +88,9 @@
                     }
                 });
             },
+            goupdate(){
+                this.$router.push("/user/update")
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             }
@@ -100,11 +102,11 @@
     #login {
         background-color: #ffffff;
         color: #000000;
-        width: 55%;
+        width: 50%;
         height: 380px;
         margin: 5% auto;
-        -webkit-box-shadow:4px 2px 6px #333333;
-        -moz-box-shadow:3px 2px 6px #333333;
+        /* -webkit-box-shadow:4px 2px 6px #333333;
+        -moz-box-shadow:3px 2px 6px #333333; */
     }
 
     .login-title {

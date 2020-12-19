@@ -38,6 +38,8 @@ public class ResultUtils<T> {
         return  new ResultUtils<>(CODE_SUCCESS, MSG_SUCCESS, data);
     }
 
+
+
     public static ResultUtils<Object> fail() {
         return new ResultUtils<>(CODE_FAIL, MSG_FAIL, FAIL);
     }

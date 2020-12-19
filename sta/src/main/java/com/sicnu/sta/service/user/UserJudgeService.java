@@ -37,4 +37,10 @@ public interface UserJudgeService {
      */
     ResultUtils<Object> submitProgramProblem(SubmitProgram submitProgram);
 
+    /**
+     * 查询该场比赛下是否是我的题目集
+     * @param userId 用户 id
+     * @param contestId 班级 id
+     */
+    void queryContestIsMyContest(Integer userId, Integer contestId);
 }

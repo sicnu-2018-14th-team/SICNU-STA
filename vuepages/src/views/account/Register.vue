@@ -176,7 +176,7 @@
                 )).then((response) => {
                     const res = response.data;
                     console.log(res);
-                    if(res.status == 1) {
+                    if(res.code === 200) {
                         // 注册成功
                         this.$message({
                             message: "注册成功！",
@@ -221,7 +221,7 @@
                             {"email":this.registerForm.email})).then((response) => {
                             const res = response.data;
                             console.log(res);
-                            if(res.status == 1) {
+                            if(res.code === 200) {
                                 this.registerForm.verifyCode = res.data;
                                 this.$message({
                                     message: "验证码发送成功，请注意查收！",
@@ -249,8 +249,8 @@
         width: 55%;
         height: 420px;
         margin: 5% auto;
-        -webkit-box-shadow:4px 2px 6px #333333;
-        -moz-box-shadow:3px 2px 6px #333333;
+        /* -webkit-box-shadow:4px 2px 6px #333333;
+        -moz-box-shadow:3px 2px 6px #333333; */
     }
 
     .register-title {
@@ -271,7 +271,7 @@
     }
 
     .el-input-wid {
-        width: 75%;
+        width: 85%;
     }
 
     .el-input__inner {
