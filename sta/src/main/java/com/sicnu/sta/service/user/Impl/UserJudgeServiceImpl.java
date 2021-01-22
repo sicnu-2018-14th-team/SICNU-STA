@@ -1,4 +1,4 @@
-package com.sicnu.sta.service.user.Impl;
+package com.sicnu.sta.service.user.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.sicnu.sta.dao.*;
@@ -6,14 +6,12 @@ import com.sicnu.sta.entity.*;
 import com.sicnu.sta.service.user.UserJudgeService;
 import com.sicnu.sta.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

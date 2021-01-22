@@ -38,7 +38,7 @@
                 </div>
             </el-header>
             <el-container>
-                <el-aside width="200px" class="side1">
+                <el-aside width="15%" class="side1">
                     <div class="asista">
                         <div class="title1">
                             <p style="font-style:italic;">STA</p>
@@ -202,6 +202,7 @@
         font-size: 18px;
     }
     .side1{
+        margin-left: 1% ;
         color: #45494c;
     }
     .main1 {

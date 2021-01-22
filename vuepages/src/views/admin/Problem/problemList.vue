@@ -57,8 +57,8 @@
       </el-pagination>
     </el-card>
     <el-card>
-      <el-button @click="creatProblem" type="primary" size="small">creatProblem</el-button>
-      <el-button @click="addProblemVisible = true" type="primary" size="small"  v-if="this.$route.query.id != null" >add From Public Problem</el-button>
+      <el-button @click="creatProblem" type="primary" size="small">创建题目</el-button>
+      <el-button @click="addProblemVisible = true" type="primary" size="small"  v-if="this.$route.query.id != null" >从题库中添加题目</el-button>
     </el-card>
     <!-- 从题目库增加题目的弹窗 -->
     <el-dialog title="搜索题目" :visible.sync="addProblemVisible" width="50%">

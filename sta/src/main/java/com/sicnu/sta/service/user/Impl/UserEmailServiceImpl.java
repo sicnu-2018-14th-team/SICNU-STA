@@ -1,4 +1,4 @@
-package com.sicnu.sta.service.user.Impl;
+package com.sicnu.sta.service.user.impl;
 
 import com.sicnu.sta.service.user.UserEmailService;
 import com.sicnu.sta.utils.ResultUtils;

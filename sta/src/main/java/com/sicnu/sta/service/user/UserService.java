@@ -10,7 +10,6 @@ public interface UserService {
      * 判断用户登录
      * @param email 用户登录邮箱
      * @param password 用户登录密码
-     * @param ip 客户端 IP
      * @return ResultUtils
      */
     ResultUtils<Object> judgeUserLogin(String email, String password);

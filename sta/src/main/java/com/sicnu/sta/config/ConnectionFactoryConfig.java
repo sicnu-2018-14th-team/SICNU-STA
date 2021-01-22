@@ -18,10 +18,30 @@ public class ConnectionFactoryConfig  {
     private Connection getConnection() throws SQLException {
         Properties properties = new Properties();
         // 这里需要自己进行加密
+        // 本地
         String user = "root";
         String password = "123456";
         String url = "jdbc:mysql://localhost:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST";
+
+         //云端
+        //String user = "nonameless";
+        //String password = "nonameless";
+        //String url = "jdbc:mysql://112.74.79.124:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST";
+        //
+
         String driverClassName = "com.mysql.cj.jdbc.Driver";
+
+
+        // 廖雪花
+        //String user = "root";
+        //String password = "jkxylxh@sicnu123456";
+        //String url = "jdbc:mysql://139.9.139.191:3306/bjy_zyq?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST";
+        //
+        //
+        //String driverClassName = "com.mysql.jdbc.Driver";
+
+
+
         properties.put("driverClassName",driverClassName);
         properties.put("url",url);
         properties.put("username",user);

@@ -1,10 +1,10 @@
 <script>
 
-    const URL = "http://127.0.0.1:8848";
-    // const URL = "http://192.168.43.100:8848";
+    const URL = "http://127.0.0.1:1006";
+    // const URL = "http://192.168.43.100:1006";
     // const URL = "http://sta.free.idcfengye.com";
     // const URL = "http://192.168.1.109:8848";
-    // const URL = "http://10.13.65.122:8848";
+    // const URL = "http://42.192.248.46:8848";
     // const URL = "http://112.74.79.124:8848";
 
     // 用户登录 url

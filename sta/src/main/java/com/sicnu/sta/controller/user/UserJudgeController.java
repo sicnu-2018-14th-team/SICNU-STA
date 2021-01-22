@@ -4,7 +4,7 @@ import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.entity.ReceiveAnswers;
 import com.sicnu.sta.entity.SubmitProgram;
 import com.sicnu.sta.log.MyOpLog;
-import com.sicnu.sta.service.user.Impl.UserJudgeServiceImpl;
+import com.sicnu.sta.service.user.impl.UserJudgeServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.PostMapping;

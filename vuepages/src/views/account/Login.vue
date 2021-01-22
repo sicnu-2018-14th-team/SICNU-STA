@@ -72,7 +72,7 @@
                             const res = response.data;
                             // console.log(this.$md5(this.ruleForm.password));
                             if(res.code === 200) {
-                                window.sessionStorage.setItem("token", res.data);
+                                window.localStorage.setItem("token", res.data);
                                 that.$router.push("/homePage/contest-list");
                             } else {
                                 this.$message({

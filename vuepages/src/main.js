@@ -2,7 +2,7 @@
  * @Author       : nonameless
  * @Date         : 2020-10-06 20:47:17
  * @LastEditors  : nonameless
- * @LastEditTime : 2020-12-19 00:20:31
+ * @LastEditTime : 2020-12-22 17:51:57
  */
 import Vue from 'vue'
 import './plugins/axios'
@@ -37,7 +37,7 @@ Vue.component('downloadExcel', JsonExcel)
 
 axios.interceptors.request.use(config => {
     // console.log(config)
-    config.headers.token = window.sessionStorage.getItem('token')
+    config.headers.token = window.localStorage.getItem('token')
     // 最后必须return config
     return config
 })
@@ -52,7 +52,7 @@ axios.interceptors.response.use(result => {
         Vue.prototype.$message.error("非授权访问")
         router.push('/user/login')
     }
-    window.sessionStorage.setItem("token", result.headers.token);
+    window.localStorage.setItem("token", result.headers.token);
     return result
 },
 error => {

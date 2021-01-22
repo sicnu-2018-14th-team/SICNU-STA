@@ -47,6 +47,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filters = new HashMap<>(2);
+        //Map<String, Filter> filters = new LinkedHashMap<>();
         //  添加 shiroAuthFilter 的拦截器，不要使用 Spring 来管理 Bean
         filters.put("authFilter", (Filter) new ShiroAuthFilter());
         factoryBean.setFilters(filters);
@@ -55,6 +56,13 @@ public class ShiroConfig {
         // anon 支持匿名访问的拦截器
         LinkedHashMap<String, String> filterChainDefinitions = new LinkedHashMap<>(4);
         // 登录接口和注册放开
+        filterChainDefinitions.put("/static/**", "anon");
+        filterChainDefinitions.put("/css/**", "anon");
+        filterChainDefinitions.put("/favicon.ico", "anon");
+        filterChainDefinitions.put("/index.html", "anon");
+        filterChainDefinitions.put("/js/**", "anon");
+        filterChainDefinitions.put("/fonts/**", "anon");
+        filterChainDefinitions.put("/img/**", "anon");
         filterChainDefinitions.put("/email", "anon");
         filterChainDefinitions.put("/user/login", "anon");
         filterChainDefinitions.put("/user/register", "anon");

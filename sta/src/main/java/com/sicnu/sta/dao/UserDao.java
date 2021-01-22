@@ -1,14 +1,11 @@
 package com.sicnu.sta.dao;
 
-import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
 import com.sicnu.sta.entity.Class;
 import com.sicnu.sta.entity.LoginLog;
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.context.annotation.Primary;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +35,7 @@ public interface UserDao {
     List<Map<String, Object>> vagueQueryUserName(@Param("userName") String userName);
 
     // 插入用户登录日志
-    void insertLoginLog(@Param("loginLog")LoginLog loginLog);
+    void insertLoginLog(@Param("loginLog") LoginLog loginLog);
 
     // 根据 userId 和 userName 来判断用户是否存在
     User queryUserByUserIdAndUserName(@Param("loginUser")LoginUser loginUser);

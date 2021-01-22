@@ -41,7 +41,7 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="300" >
           <template slot-scope="scope" >
-            <el-tooltip class="item" effect="dark" content="修改比赛信息" placement="top">
+            <el-tooltip class="item" effect="dark" content="修考试信息" placement="top">
               <el-button
                 @click.native.prevent="change(scope.row)"
                 type="primary" icon="el-icon-edit"
@@ -54,7 +54,7 @@
               size="small">
               
             </el-button> -->
-            <el-tooltip class="item" effect="dark" content="查看比赛题目" placement="top">
+            <el-tooltip class="item" effect="dark" content="考试组卷" placement="top">
               <el-button
                 @click.native.prevent="problemlist(scope.row)"
                 type="info" icon="el-icon-s-operation"

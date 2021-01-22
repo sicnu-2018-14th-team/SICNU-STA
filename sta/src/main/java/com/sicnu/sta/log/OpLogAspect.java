@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.entity.OpLog;
 import com.sicnu.sta.service.admin.impl.AdminServiceImpl;
-import com.sicnu.sta.service.user.Impl.UserServiceImpl;
+import com.sicnu.sta.service.user.impl.UserServiceImpl;
 import com.sicnu.sta.utils.HttpContextUtils;
 import com.sicnu.sta.utils.IpUtils;
 import org.apache.shiro.SecurityUtils;

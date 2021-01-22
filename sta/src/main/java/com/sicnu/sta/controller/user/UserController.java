@@ -3,7 +3,7 @@ package com.sicnu.sta.controller.user;
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.entity.User;
 import com.sicnu.sta.log.MyOpLog;
-import com.sicnu.sta.service.user.Impl.UserServiceImpl;
+import com.sicnu.sta.service.user.impl.UserServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.SecurityUtils;

@@ -1,16 +1,13 @@
 package com.sicnu.sta.service.admin.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.sicnu.sta.dao.*;
 import com.sicnu.sta.entity.*;
 import com.sicnu.sta.service.admin.AdminProblemService;
-import com.sicnu.sta.service.user.Impl.UserServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import com.sicnu.sta.utils.ZipUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

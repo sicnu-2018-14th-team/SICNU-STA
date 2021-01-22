@@ -2,8 +2,8 @@ package com.sicnu.sta.controller.user;
 
 import com.sicnu.sta.entity.LoginUser;
 import com.sicnu.sta.log.MyOpLog;
-import com.sicnu.sta.service.user.Impl.UserContestProblemServiceImpl;
-import com.sicnu.sta.service.user.Impl.UserContestServiceImpl;
+import com.sicnu.sta.service.user.impl.UserContestProblemServiceImpl;
+import com.sicnu.sta.service.user.impl.UserContestServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.PostMapping;

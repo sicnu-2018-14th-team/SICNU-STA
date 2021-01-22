@@ -3,7 +3,6 @@ package com.sicnu.sta.dao;
 import com.sicnu.sta.entity.ContestProblem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.redis.connection.RedisServer;
 
 import java.util.List;
 

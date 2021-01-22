@@ -1,4 +1,4 @@
-package com.sicnu.sta.service.user.Impl;
+package com.sicnu.sta.service.user.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

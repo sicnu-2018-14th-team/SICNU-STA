@@ -1,6 +1,6 @@
 package com.sicnu.sta.controller.user;
 
-import com.sicnu.sta.service.user.Impl.UserEmailServiceImpl;
+import com.sicnu.sta.service.user.impl.UserEmailServiceImpl;
 import com.sicnu.sta.utils.ResultUtils;
 import org.springframework.web.bind.annotation.*;
 

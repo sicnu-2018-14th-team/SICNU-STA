@@ -1,11 +1,15 @@
 server:
-  port: 8848
+  port: 1006
 
 #文件存储路径
 prop:
   upload-folder: ./upload/testCases/
 
 spring:
+
+  resources:
+    static-locations: classpath:/static/
+
   servlet:
     multipart:
       max-file-size: 10MB  # 单个文件的大小
@@ -22,7 +26,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://112.74.79.124:3306/sta_oj?characterEncoding=utf8&useSSL=false&useAffectedRows=true
+#    url: jdbc:mysql://112.74.79.124:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true
+#    username: nonameless
+#    password: oWo0GLomYp3ERYnjnrPLbEQwyPslFPfLfwsJs0NhCQiY4vayCrR9lCoFyDwt6M5hksQ1BfzaAimx6Yt06jxSfw==
     url: jdbc:mysql://localhost:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST
     username: root
     password: JFZ+vYrycoNu2ZiVqsTnvR9GVhSXwRRgcBZUmw1DA++lz9WmTRVn6V51YuQiX09kBDkMKyYOr6RkEF+4NLTyeg==
@@ -43,14 +49,19 @@ spring:
 
 
     #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    # 本地
     connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAODDOS3zUph4eeyGWQXi7+gC9YSsX9GZKy+NdJ2Z8rmZ4gqCofPFaCYvsMqDEwg7c/2zBayWnDLS7yydVspA+O0CAwEAAQ==;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+    # 云端
+#    connectionProperties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMz5CS30n77f+gTiW0p5KmgMmoBrMd5cuTZF7QeGBKWY158clVrbLVXyBFx6Duy+WJtFiwCpVt8wWlnGX+IitsUCAwEAAQ==;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+
     #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j 防御sql注入的filter:wall
     filters: stat,wall,slf4j,config
 
   kafka:
     # kafka服务器地址，多个集群用逗号分隔
     bootstrap-servers: 112.74.79.124:9092
-    #bootstrap-servers: 127.0.0.1:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -80,4 +91,3 @@ mybatis:
     map-underscore-to-camel-case: true
   type-aliases-package: com.sicnu.sta.entity
   mapper-locations: classpath:dao/*.xml
-

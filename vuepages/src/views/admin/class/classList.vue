@@ -19,7 +19,7 @@
                 size="small">
               </el-button>
             </el-tooltip>
-            <el-tooltip effect="dark" content="查看班级比赛" placement="top">
+            <el-tooltip effect="dark" content="组织考试" placement="top">
               <el-button
                 @click.native.prevent="queryclasscontest(scope.row)"
                 type="warning" icon="el-icon-s-claim"
