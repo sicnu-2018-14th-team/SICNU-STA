@@ -1,0 +1,27 @@
+server:
+  port: 8084
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+
+spring:
+  application:
+    name: data
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sta?characterEncoding=utf8&useSSL=false&useAffectedRows=true&serverTimezone=CST
+    username: root
+    password: 123456
+
+mybatis:
+  configuration:
+    #   下划线自动转为驼峰命名法
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.sicnu.sta.commons.entity
+  mapper-locations: classpath:dao/*.xml

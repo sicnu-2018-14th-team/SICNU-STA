@@ -1,0 +1,28 @@
+#文件存储路径
+prop:
+  upload-folder: ./upload/testCases/
+server:
+  port: 8083
+spring:
+  application:
+    name: core
+  main:
+    allow-bean-definition-overriding: true
+  kafka:
+    # kafka服务器地址，多个集群用逗号分隔
+    bootstrap-servers: 112.74.79.124:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: default_consumer_group
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/

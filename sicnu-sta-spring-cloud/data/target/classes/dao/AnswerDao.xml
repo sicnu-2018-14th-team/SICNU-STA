@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.AnswerDao">
+
+    <insert id="saveUserAnswer" parameterType="Answer" useGeneratedKeys="true" keyProperty="answerId">
+        insert into answer(user_id, contest_id, problem_id, user_answer, result, user_score)
+        values(#{answer.userId}, #{answer.contestId}, #{answer.problemId}, #{answer.userAnswer}, #{answer.result}, #{answer.userScore})
+    </insert>
+
+    <select id="queryUserObjectiveResult" resultType="Answer">
+        select * from answer where user_id = #{userId} and contest_id = #{contestId} and problem_id = #{problemId}
+    </select>
+
+    <update id="updateUserScoreAndResult">
+        update answer set result = #{result}, user_score = #{userScore}
+        where user_id = #{userId} and contest_id = #{contestId} and problem_id = #{problemId}
+    </update>
+
+    <select id="queryLastAnswerOfObjective" resultType="Map">
+        select * from answer
+        where user_id = #{userId} and problem_id = #{problemId} and contest_id = #{contestId}
+    </select>
+
+    <update id="updateLastAnswerOfObjective">
+        update answer set user_answer = #{answer.userAnswer}
+        where user_id = #{answer.userId} and contest_id = #{answer.contestId} and problem_id = #{answer.problemId}
+    </update>
+
+    <insert id="saveProgramAnswer" parameterType="Answer" useGeneratedKeys="true" keyProperty="answerId">
+        insert into answer(user_id, contest_id, problem_id, user_answer, result, user_score)
+        values(#{answer.userId}, #{answer.contestId}, #{answer.problemId}, #{answer.userAnswer}, #{answer.result}, #{answer.userScore})
+    </insert>
+
+    <update id="updateProgramAnswer">
+         update answer set user_answer = #{answer.userAnswer}, result = #{answer.result}, user_score = #{answer.userScore}
+        where user_id = #{answer.userId} and contest_id = #{answer.contestId} and problem_id = #{answer.problemId}
+    </update>
+
+</mapper>

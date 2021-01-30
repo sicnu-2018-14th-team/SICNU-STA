@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.ContestDao">
+
+    <insert id="createContest" parameterType="Contest" useGeneratedKeys="true" keyProperty="contestId">
+        insert into contest(user_id, title, start_time, end_time, description, password, is_private, real_rank, available)
+        values (#{contest.userId}, #{contest.title}, #{contest.startTime}, #{contest.endTime}, #{contest.description}, #{contest.password}, #{contest.isPrivate}, #{contest.realRank}, #{contest.available})
+    </insert>
+
+    <select id="queryContestListInfo" resultType="Map">
+        select * from contest where available = 1 limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryContestCnt" resultType="int">
+        select count(*) from contest where available = 1
+    </select>
+
+    <select id="queryContestInfoByContestId" resultType="Map">
+        select * from contest where contest_id = #{contestId}
+    </select>
+
+    <select id="queryContestTime" resultType="Map">
+        select start_time, end_time from contest where contest_id = #{contestId}
+    </select>
+
+    <update id="updateContestInfo">
+        update contest set is_private = #{contest.isPrivate}, start_time = #{contest.startTime}, password = #{contest.password},
+        end_time = #{contest.endTime}, description = #{contest.description}, real_rank = #{contest.realRank}, title = #{contest.title}
+        where contest_id = #{contest.contestId}
+    </update>
+
+    <insert id="addContestToClass">
+        insert into class_contest(class_id, contest_id)
+        values (#{classId}, #{contestId})
+    </insert>
+
+    <insert id="addContestToStudent">
+        insert into user_contest(user_id, contest_id)
+        values (#{studentId}, #{contestId})
+    </insert>
+
+    <select id="queryOpenContest" resultType="Map">
+        select * from contest, user where contest.user_id = user.user_id and is_private = 1 and available = 1 limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryMyContest" resultType="Map">
+        select * from contest, user where contest_id in (
+            select contest_id from user_contest where user_id = #{userId}
+        ) and contest.user_id = user.user_id
+    </select>
+
+    <select id="queryOpenContestCnt" resultType="Integer">
+        select count(*) from contest where is_private = 1 and available = 1
+    </select>
+
+    <select id="queryMyContestCnt" resultType="Integer">
+        select count(*) from contest where contest_id in (
+            select contest_id from user_contest where user_id = #{userId}
+        )
+    </select>
+
+    <select id="queryClassContestIds" resultType="Integer">
+        select contest_id from class_contest where class_id = #{classId}
+    </select>
+
+    <select id="queryContestMySubmit" resultType="Map">
+        select * from submit_program
+        where contest_id = #{contestId} and user_id = #{userId}
+        limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryContestMySubmitCnt" resultType="Integer">
+        select count(*) from submit_program where contest_id = #{contestId} and user_id = #{userId}
+    </select>
+
+    <select id="queryContestAllSubmit" resultType="Map">
+        select * from submit_program where contest_id = #{contestId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryContestAllSubmitCnt" resultType="Integer">
+        select count(*) from submit_program where contest_id = #{contestId}
+    </select>
+
+    <select id="queryContestIsRealRank" resultType="Integer">
+        select real_rank from contest where contest_id = #{contestId}
+    </select>
+
+    <select id="queryContestUser" resultType="Integer">
+        select distinct user_id from answer where contest_id = #{contestId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <select id="queryContestUserCnt" resultType="Integer">
+        select distinct user_id from answer where contest_id = #{contestId}
+    </select>
+
+    <select id="queryContestUserSumScore" resultType="Integer">
+        select sum(user_score) from answer where contest_id = #{contestId} and user_id = #{userId}
+    </select>
+
+    <select id="queryClassContestUserIds" resultType="Integer">
+        select distinct user_id from answer where contest_id = #{contestId} and user_id in (
+            select student_id from class_student where class_id = #{classId}
+        )
+    </select>
+
+    <select id="queryClassIdsOfContest" resultType="Integer">
+        select class_id from class_contest where contest_id = #{contestId}
+    </select>
+
+</mapper>

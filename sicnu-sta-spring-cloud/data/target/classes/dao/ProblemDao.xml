@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.ProblemDao">
+
+    <insert id="addProblem" parameterType="Problem" useGeneratedKeys="true" keyProperty="problemId">
+        insert into problem(real_id, type_id, user_id, difficulty, available)
+        values(#{problem.realId}, #{problem.typeId}, #{problem.userId}, #{problem.difficulty}, #{problem.available})
+    </insert>
+
+    <update id="setProblemTag">
+        update problem set tag = #{tag} where problem_id = #{problemId}
+    </update>
+
+    <select id="queryProblemRealId" resultType="Map">
+        select real_id, type_id from problem where problem_id = #{problemId}
+    </select>
+
+    <select id="queryAllProblemType" resultType="Map">
+        select * from problem_type
+    </select>
+
+    <select id="queryTableNameByTypeId" resultType="String">
+        select table_name from problem_type where type_id = #{typeId}
+    </select>
+
+    <select id="queryProblemInfo" resultType="Map">
+        select * from ${tableName} where problem_id = #{problemId}
+    </select>
+
+    <select id="queryProblemIdByAuthorIdAndDifficultyAndTypeId" resultType="Integer">
+        select problem_id from problem
+        <where>
+            <if test="authorId != null and authorId != ''">
+                user_id = #{authorId}
+            </if>
+            <if test="difficulty != null and difficulty != ''">
+                and difficulty = #{difficulty}
+            </if>
+            <if test="typeId != null and typeId != ''">
+                and type_id = #{typeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryRealIdAndTypeIdByProblemId" resultType="Map">
+        select real_id, type_id from problem where problem_id = #{problemId}
+    </select>
+
+    <select id="queryRealIdByTypeId" resultType="Integer">
+        select real_id from problem where type_id = #{typeId}
+    </select>
+
+    <select id="queryProblemIdByRealIdAndTypeId" resultType="Integer">
+        select problem_id from problem where real_id = #{realId} and type_id = #{typeId}
+    </select>
+
+    <select id="queryAnswerAndScore" resultType="Map">
+        select score, ans from ${tableName} where problem_id = #{realId}
+    </select>
+
+    <insert id="createChoiceProblem" useGeneratedKeys="true" keyProperty="problemId">
+        insert into choice_problem(user_id, score, title, option_a, option_b, option_c, option_d, ans, available, difficulty)
+        values(#{choice.userId}, #{choice.score}, #{choice.title},
+        #{choice.optionA}, #{choice.optionB}, #{choice.optionC}, #{choice.optionD},
+        #{choice.ans}, #{choice.available}, #{choice.difficulty})
+    </insert>
+
+    <insert id="insertNewPath" parameterType="TestCasePath" useGeneratedKeys="true" keyProperty="pathId">
+        insert into test_case_path(uuid, problem_id)
+        values(#{path.uuid}, #{path.problemId})
+    </insert>
+
+    <insert id="createProgramProblem" parameterType="ProgramProblem" useGeneratedKeys="true" keyProperty="problemId">
+        insert into program_problem(user_id, title, description, input, output, samples, hint, time_limit, memory_limit, difficulty, available, score)
+        values(#{programProblem.userId}, #{programProblem.title}, #{programProblem.description}, #{programProblem.input},
+        #{programProblem.output}, #{programProblem.samples}, #{programProblem.hint}, #{programProblem.timeLimit}, #{programProblem.memoryLimit},
+        #{programProblem.difficulty}, #{programProblem.available}, #{programProblem.score})
+    </insert>
+
+    <update id="updateProblemIdFromTestCasePath">
+        update test_case_path set problem_id = #{problemId} where path_id = #{pathId}
+    </update>
+
+    <insert id="insertSubmitProgram" parameterType="SubmitProgram" useGeneratedKeys="true" keyProperty="submitId">
+        insert into submit_program(user_id, contest_id, problem_id, code, result, type, submit_time)
+        values(#{submitProgram.userId}, #{submitProgram.contestId}, #{submitProgram.problemId}, #{submitProgram.code}, #{submitProgram.result}, #{submitProgram.type}, #{submitProgram.submitTime})
+    </insert>
+
+    <select id="queryLastSubmit" resultType="Integer">
+        select submit_id from last_submit
+        where user_id = #{userId} and contest_id = #{contestId} and problem_id = #{problemId}
+    </select>
+
+    <update id="updateLastSubmit">
+        update last_submit set submit_id = #{submitId}
+        where user_id = #{userId} and contest_id = #{contestId} and problem_id = #{problemId}
+    </update>
+
+    <insert id="insertLastSubmit">
+        insert into last_submit(submit_id, user_id, contest_id, problem_id)
+        values(#{submitId}, #{userId}, #{contestId}, #{problemId})
+    </insert>
+
+    <select id="queryLimitFormProgram" resultType="Map">
+        select time_limit, memory_limit from program_problem where problem_id = (
+            select real_id from problem where problem_id = #{problemId}
+        )
+    </select>
+
+    <select id="queryPathByProblemId" resultType="String">
+        select uuid from test_case_path where problem_id = #{problemId}
+    </select>
+
+    <select id="querySubmitResult" resultType="SubmitProgram">
+        select * from submit_program where submit_id = #{submitId}
+    </select>
+
+    <update id="saveSubmitResult">
+        update submit_program set result = #{result} where submit_id = #{submitId}
+    </update>
+
+    <select id="queryProgramProblem" resultType="Map">
+        select * from program_problem where problem_id = (
+            select real_id from problem where problem_id = #{problemId}
+        )
+    </select>
+
+    <select id="queryAllTypeIdOfProblem" resultType="Integer">
+        select type_id from problem_type
+    </select>
+
+    <select id="queryProblemIdsByContestIdAndTypeId" resultType="Integer">
+        select problem_id from contest_problem
+        where contest_id = #{contestId} and problem_id in (
+            select problem_id from problem where type_id = #{typeId}
+        )
+    </select>
+
+    <select id="queryTagsByProblemId" resultType="String">
+        select tag from problem where problem_id = #{problemId}
+    </select>
+
+    <select id="queryAllProblemId" resultType="Integer">
+        select problem_id from problem
+    </select>
+
+    <select id="queryRealIdByProblemIdAndTypeId" resultType="Integer">
+        select real_id from problem where problem_id = #{problemId} and type_id = #{typeId}
+    </select>
+
+    <update id="updateChoiceProblem">
+        update choice_problem
+        set title = #{choiceProblem.title},
+        option_a = #{choiceProblem.optionA},
+        option_b = #{choiceProblem.optionB},
+        option_c = #{choiceProblem.optionC},
+        option_d = #{choiceProblem.optionD},
+        score = #{choiceProblem.score},
+        ans = #{choiceProblem.ans},
+        difficulty = #{choiceProblem.difficulty}
+        where problem_id = #{choiceProblem.problemId}
+    </update>
+
+    <select id="queryTestCasePathByPathId" resultType="TestCasePath">
+        select * from test_case_path where problem_id = #{problemId}
+    </select>
+
+    <update id="updateProgramProblem">
+        update program_problem
+        set title = #{programProblem.title},
+        description = #{programProblem.description},
+        input = #{programProblem.input},
+        output = #{programProblem.output},
+        samples = #{programProblem.samples},
+        hint = #{programProblem.hint},
+        time_limit = #{programProblem.timeLimit},
+        memory_limit = #{programProblem.memoryLimit},
+        difficulty = #{programProblem.difficulty},
+        score = #{programProblem.score}
+        where problem_id = #{programProblem.problemId}
+    </update>
+
+    <select id="queryRealIdByTypeIdPaging" resultType="Integer">
+        select real_id from problem where type_id = #{typeId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <delete id="deletePathByProblemId">
+        delete from test_case_path where problem_id = #{problemId}
+    </delete>
+
+    <select id="queryProgramTitleByProblemId" resultType="String">
+        select title from program_problem where problem_id = (
+            select real_id from problem where problem_id = #{problemId}
+        )
+    </select>
+
+    <select id="queryTypeIdByProblemId" resultType="Integer">
+        select type_id from problem where problem_id = #{problemId}
+    </select>
+
+</mapper>

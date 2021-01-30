@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+
+spring:
+  application:
+    name: auth
+
+  # mail 配置
+  mail:
+    username: 2835391726@qq.com
+    password: xrszjaofvjycdfjh
+    host: smtp.qq.com
+    properties:
+      mail:
+        stmp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  # redis 配置
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    port: 6379  # Redis服务器连接端口
+
+

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.UserDao">
+    <select id="judgeUserLogin" resultType="User">
+        SELECT * FROM user WHERE email = #{email} AND password = #{password}
+    </select>
+
+    <insert id="insertNewUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO user(email, password, user_name) VALUES (#{user.email}, #{user.password}, #{user.userName})
+    </insert>
+
+    <select id="findUserByEmail" resultType="User">
+        SELECT user_id, email, password FROM user WHERE email = #{email} limit 1
+    </select>
+
+    <update id="updateUserPassword">
+        UPDATE user SET password = #{password} WHERE email = #{email}
+    </update>
+
+    <select id="queryUserNameByUserId" resultType="String">
+        select user_name from user where user_id = #{userId}
+    </select>
+
+    <select id="vagueQueryUserName" resultType="Map">
+        select user_id, user_name from user where user_name like concat('%', #{userName}, '%')
+    </select>
+
+    <select id="queryUserByUserName" resultType="User">
+        select * from user where user_name = #{userName}
+    </select>
+
+    <insert id="insertLoginLog" parameterType="LoginLog" useGeneratedKeys="true" keyProperty="eventId">
+        insert into login_log(user_id, user_name, ip, login_time, message)
+        values(#{loginLog.userId}, #{loginLog.userName}, #{loginLog.ip}, #{loginLog.loginTime}, #{loginLog.message})
+    </insert>
+
+    <select id="queryUserByUserIdAndUserName" parameterType="LoginUser" resultType="User">
+        select * from user where user_id = #{loginUser.userId} and user_name = #{loginUser.userName}
+    </select>
+
+    <select id="queryUserInfo" resultType="Map">
+        select * from user where user_id = #{userId}
+    </select>
+
+    <insert id="addStudentToNewUser">
+        insert into user_role(user_id, role_id) values(#{userId}, #{roleId})
+    </insert>
+
+    <select id="queryClassListByCode" resultType="Map">
+        select * from class where code = #{code}
+    </select>
+
+    <insert id="studentJoinTheClass">
+        insert into class_student(class_id, student_id)
+        values (#{classId}, #{studentId})
+    </insert>
+
+    <update id="updateUserInfo">
+        update user
+        set sex = #{sex},
+        birthday = #{birthday},
+        real_name = #{realName},
+        address = #{address},
+        phone = #{phone},
+        post_code = #{postCode}
+        where user_id = #{userId}
+    </update>
+
+    <select id="getClassInfo" resultType="Map">
+        select *
+        from class
+        where class_id in (
+            select class_id from class_student where student_id = #{userId}
+        )
+    </select>
+
+    <select id="queryClassStudents" resultType="Integer">
+        select student_id from class_student where class_id = #{classId} for update
+    </select>
+
+    <delete id="exitClass">
+        delete from class_student where class_id = #{classId} and student_id = #{userId}
+    </delete>
+
+    <select id="queryTeacherCnt" resultType="Integer">
+        select count(*) from user where user_id in (
+            select user_id from user_role where role_id = 3
+        )
+    </select>
+
+    <select id="queryStudentCnt" resultType="Integer">
+        select count(*) from user where user_id in (
+            select user_id from user_role where role_id = 4
+        )
+    </select>
+
+    <select id="queryContestCnt" resultType="Integer">
+        select count(*) from contest
+    </select>
+
+    <select id="queryProblemCnt" resultType="Integer">
+        select count(*) from problem
+    </select>
+
+    <select id="queryClassCnt" resultType="Integer">
+        select count(*) from class
+    </select>
+
+    <select id="queryContestIsMyContest" resultType="Map">
+        select * from user_contest where user_id = #{userId} and contest_id = #{contestId}
+    </select>
+
+    <select id="queryRoleNameByUserId" resultType="String">
+        select role_name from role where role_id = (
+            select role_id from user_role where user_id = #{userId}
+        )
+    </select>
+
+</mapper>

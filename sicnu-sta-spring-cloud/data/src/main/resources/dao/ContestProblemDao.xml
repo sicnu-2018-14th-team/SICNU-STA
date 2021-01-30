@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.ContestProblemDao">
+
+    <insert id="addProblemToContest" parameterType="ContestProblem">
+       insert into contest_problem(contest_id, problem_id, score)
+       values(#{contestProblem.contestId}, #{contestProblem.problemId}, #{contestProblem.score})
+    </insert>
+
+    <select id="queryRealIdList" resultType="Integer">
+        select real_id from problem where problem_id in (
+            select problem_id from contest_problem
+            <where>
+                <if test="contestId > 0">
+                    contest_id = #{contestId}
+                </if>
+            </where>
+        ) and type_id = #{typeId}
+    </select>
+
+    <delete id="deleteContestProblem">
+        delete from contest_problem where contest_id = #{contestId} and problem_id = #{problemId}
+    </delete>
+
+    <select id="queryProblemIdList" resultType="Integer">
+        select problem_id from problem where problem_id in (
+            select problem_id from contest_problem where contest_id = #{contestId}
+        ) and type_id = #{typeId}
+    </select>
+
+    <select id="queryScore" resultType="Integer">
+        select score from contest_problem where contest_id = #{contestId} and problem_id = #{problemId}
+    </select>
+
+    <select id="queryRealIdListPaging" resultType="Integer">
+        select real_id from problem where problem_id in (
+        select problem_id from contest_problem
+        <where>
+            <if test="contestId > 0">
+                contest_id = #{contestId}
+            </if>
+        </where>
+        ) and type_id = #{typeId} limit #{cnt}, #{pageSize}
+    </select>
+
+    <update id="updateTotalAndCorrect">
+        update contest_problem
+        set total = total + #{a},
+        correct = correct + #{b}
+        where contest_id = #{contestId} and problem_id = #{problemId}
+    </update>
+
+    <select id="queryProblemIdsForContest" resultType="Integer">
+        select problem_id from contest_problem where contest_id = #{contestId}
+    </select>
+
+</mapper>

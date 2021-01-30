@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.JudgeProblemDao">
+
+    <insert id="addJudgeProblem" parameterType="JudgeProblem" useGeneratedKeys="true" keyProperty="problemId">
+        insert into judge_problem(user_id, title, ans, score, available, difficulty)
+        values(#{judgeProblem.userId}, #{judgeProblem.title}, #{judgeProblem.ans}, #{judgeProblem.score}, #{judgeProblem.available}, #{judgeProblem.difficulty})
+    </insert>
+
+    <update id="updateJudgeProblem">
+        update judge_problem
+        set title = #{judgeProblem.title}, ans = #{judgeProblem.ans}, score = #{judgeProblem.score}, difficulty = #{judgeProblem.difficulty}
+        where problem_id = #{judgeProblem.problemId}
+    </update>
+
+</mapper>

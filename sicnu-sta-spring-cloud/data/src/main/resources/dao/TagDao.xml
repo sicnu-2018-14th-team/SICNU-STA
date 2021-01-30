@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sicnu.sta.data.dao.TagDao">
+
+    <insert id="addTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="tagId">
+        insert into tag(tag_name, problem)
+        values(#{tag.tagName}, #{tag.problem})
+    </insert>
+
+    <select id="queryTagId" resultType="Integer">
+        select tag_id from tag where tag_name = #{tagName}
+    </select>
+
+    <select id="vagueQueryTag" resultType="Map">
+        select tag_id, tag_name from tag where tag_name like concat('%', #{tagName}, '%')
+    </select>
+
+    <select id="queryProblemByTag" resultType="String">
+        select problem from tag where tag_id = #{tagId}
+    </select>
+
+    <select id="queryTagNameByTagId" resultType="String">
+        select tag_name from tag where tag_id = #{tagId}
+    </select>
+
+    <update id="updateTagProblems">
+        update tag set problem = #{problem} where tag_id = #{tagId}
+    </update>
+
+</mapper>
